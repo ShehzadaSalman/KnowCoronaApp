@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knowcorona/social-dist.dart';
 
 class StartPage extends StatefulWidget {
   @override
@@ -69,12 +70,14 @@ class _StartPageState extends State<StartPage> {
                    child:   Column(
                      children: <Widget>[
   
-                    InkWell(   
-                  borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
-                  ),
-                  onTap: () {},
-                  child: Container(
+                
+                   InkWell(
+                     onTap: (){
+                       Navigator.pushNamed(
+                          context,'/survey'
+                        );
+                     },
+                     child: Container(
                     margin: EdgeInsets.fromLTRB(40, 5, 40, 0),
                     padding: EdgeInsets.fromLTRB(10, 24, 10, 24),
                     child: Center(
@@ -106,7 +109,9 @@ class _StartPageState extends State<StartPage> {
                     
                     ),
                   ),
-                ),
+              
+                   ),
+              
                  SizedBox(height:10),
                   
                   InkWell(

@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:knowcorona/social-dist.dart';
+import 'package:knowcorona/survivor.dart';
 import 'start.dart';
+import 'package:knowcorona/loading.dart';
 
 
 
@@ -13,12 +15,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/' : (context) => LoadingPage(),
+        '/home' : (context) => MyHomePage(),
+        '/start' : (context) => StartPage(),
+        '/survey' : (context) => SocialDistance(),
+        '/survivor' : (context) => SurvivorOverview()
+      },
       debugShowCheckedModeBanner: false,
       title: 'Welcome to KnowCorona',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SocialDistance()
     );
   }
 }
@@ -27,6 +33,10 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
+
+
+
+
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
@@ -74,17 +84,32 @@ class _MyHomePageState extends State<MyHomePage> {
                       alignment: Alignment.topCenter,
                       overflow: Overflow.visible,
                       children: <Widget>[
-                        Image(
+                        
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => StartPage()),
+                                );
+                          },
+                          child: Image(
                           image: AssetImage('Images/flagtwo.png'),
+                        ),
                         ),
                         Image(
                           image: AssetImage('Images/language.png'),
                         ),
                         Positioned(
                           bottom: -20,
-                          child: Image(
+                          child: GestureDetector(
+                            onTap: (){
+                              print('The Arrow is tapped');
+                            },
+                            child: Image(
                             image: AssetImage('Images/arrow.png'),
                           ),
+                          )
                         )
                       ],
                     ),

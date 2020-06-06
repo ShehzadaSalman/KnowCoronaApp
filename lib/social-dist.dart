@@ -18,8 +18,28 @@ class _SocialDistanceState extends State<SocialDistance> {
         child: Padding(
           padding: EdgeInsets.fromLTRB(0,10,0,10),
           child: Column(
+
             children: <Widget>[
-            navigationTab(),
+          Container(
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () { Navigator.pop(context); },
+                child: Image(image: AssetImage('Images/Vector.png'),),
+              ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context, '/survivor');
+                },
+                child: Image(image: AssetImage('Images/rewardtab.png'),)
+              )
+
+            ],
+          ),
+        ),
+
             surveyCarousel(),
             SizedBox(height:30),
             surveyInformation(),
@@ -90,7 +110,7 @@ class _SocialDistanceState extends State<SocialDistance> {
                    
                    child: Text('Do not Shake hand or Hug Each Other', 
                    style: TextStyle(fontFamily: 'Seg', 
-                   fontSize: 16,),
+                   fontSize: 15,),
                    ),
                    alignment: Alignment(0.0, 0.0),
                    decoration: BoxDecoration(
@@ -114,7 +134,7 @@ class _SocialDistanceState extends State<SocialDistance> {
                    constraints: BoxConstraints(minHeight: 50),
                    
                    child: Text('Greet Each Other with an Elbow Shake', 
-                   style: TextStyle(fontFamily: 'Seg', fontSize: 16,),
+                   style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
                    ),
                    alignment: Alignment(0.0, 0.0),
                    decoration: BoxDecoration(
@@ -138,7 +158,7 @@ class _SocialDistanceState extends State<SocialDistance> {
                    constraints: BoxConstraints(minHeight: 50),
                    
                    child: Text('Avoid going to large gatherings or Aggregations', 
-                   style: TextStyle(fontFamily: 'Seg', fontSize: 16,),
+                   style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
                    ),
                    alignment: Alignment(0.0, 0.0),
                    decoration: BoxDecoration(
@@ -187,7 +207,7 @@ class _SocialDistanceState extends State<SocialDistance> {
                    constraints: BoxConstraints(minHeight: 50),
                    
                    child: Text('Avoid going out as much as possible', 
-                   style: TextStyle(fontFamily: 'Seg', fontSize: 16,),
+                   style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
                    ),
                    alignment: Alignment(0.0, 0.0),
                    decoration: BoxDecoration(
@@ -230,7 +250,7 @@ class _SocialDistanceState extends State<SocialDistance> {
               onPressed: (){}
             ),
             ),
-               
+              SizedBox(height:40), 
            
 
 
@@ -270,12 +290,10 @@ Widget surveyCarousel(){
                     blurRadius: 6.0,
                   ),
                 ],
-            
-
           ),
           child: Text('$i', 
            textAlign: TextAlign.center,
-          style: TextStyle(
+           style: TextStyle(
             fontSize: 23.0,
             fontWeight: FontWeight.w500,
             color: Color(0xFF4F4F4F),
@@ -383,9 +401,15 @@ return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Image(image: AssetImage('Images/Vector.png'),),
+
+          GestureDetector(
+            onTap: (){
+
+          print('Going to the back page');
+            },
+            child: Image(image: AssetImage('Images/Vector.png'),),
+          ),
           Image(image: AssetImage('Images/rewardtab.png'),)
-          
         ],
       ),
     );
