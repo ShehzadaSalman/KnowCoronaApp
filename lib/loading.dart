@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:knowcorona/main.dart';
 
 class LoadingPage extends StatefulWidget {
   @override
@@ -14,18 +16,31 @@ class _LoadingPageState extends State<LoadingPage> {
       Duration(
         seconds: 3
       ),(){
-      Navigator.pushNamed(context, '/home');
+      Navigator.push(context,
+      MaterialPageRoute(
+        builder: (context) => MyHomePage(),
+      )
+      );
     }
     );
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('This is the loading page'),
+    return Scaffold(
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('Images/background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Image(image: AssetImage('Images/flagtwo.png')),
+        ),
+
       ),
     );
   }

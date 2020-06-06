@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'SurveyTitle.dart';
 
 class SocialDistance extends StatefulWidget {
   SocialDistance({Key key}) : super(key: key);
@@ -11,6 +12,7 @@ class SocialDistance extends StatefulWidget {
 class _SocialDistanceState extends State<SocialDistance> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body:  SingleChildScrollView(
       child:SafeArea(
@@ -39,7 +41,7 @@ class _SocialDistanceState extends State<SocialDistance> {
             ],
           ),
         ),
-
+            SizedBox(height:10),
             surveyCarousel(),
             SizedBox(height:30),
             surveyInformation(),
@@ -50,7 +52,7 @@ class _SocialDistanceState extends State<SocialDistance> {
               padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(6, (index) => Text("$index m",
+                children: List.generate(6, (index) => Text("${index}m",
                 style: TextStyle(
                   fontSize: 16, fontWeight:FontWeight.bold, fontFamily: 'Seg',
                   color: Color(0xFF828282)
@@ -180,7 +182,6 @@ class _SocialDistanceState extends State<SocialDistance> {
                   Container(
                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                    constraints: BoxConstraints(minHeight: 50),
-                   
                    child: Text('Wear a face mask to protect others', 
                    textAlign: TextAlign.left,
                    style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
@@ -230,9 +231,7 @@ class _SocialDistanceState extends State<SocialDistance> {
              )
             ),
 
-        
-               
-              SizedBox(height:40),
+            SizedBox(height:40),
             Container(
             child: RaisedButton(
               color: Color(0xFFBDBDBD),
@@ -270,19 +269,34 @@ class _SocialDistanceState extends State<SocialDistance> {
 
 
 Widget surveyCarousel(){
+int _current = 0;
+  List<SurveyTitle> surveylist = [
+    SurveyTitle('Social Distancing',1, '/survey'),
+    SurveyTitle('Sneeze Cough',0, '/sneeze'),
+    SurveyTitle('Hydration',0, '/hydration'),
+  ];
+  List<String> surveys = ['Social Distancing' , 'Sneeze Cough', 'Sneeze Cough' , 'Hydrated'];
   return Container(
   child: CarouselSlider(
-    items: ['Social Distancing','Washing Hands','Sneeze Cough','Hydrated'].map((i) {
+    items: surveylist.map((i) {
     return Builder(
       builder: (BuildContext context) {
-        return Container(
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.symmetric(horizontal: 5.0),
-          alignment: Alignment(0.0, 0.0),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Color(0xFFE3E6EC),
-               borderRadius:  BorderRadius.all( Radius.circular(10.0)),
+
+        return InkWell(
+          onTap: (){
+            Navigator.pushNamed(context, '${i.route}');
+          },
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              alignment: Alignment(0.0, 0.0),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color:  _current == i.pagenumber
+                    ? Color(0xFFE3E6EC)
+                    : Color(0xFF2F80ED),
+
+                borderRadius:  BorderRadius.all(Radius.circular(10.0)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey[400],
@@ -290,25 +304,32 @@ Widget surveyCarousel(){
                     blurRadius: 6.0,
                   ),
                 ],
+              ),
+              child: Text('${i.title}',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 23.0,
+                    fontWeight: FontWeight.w600,
+
+                    color: _current == i.pagenumber
+                        ? Color(0xFF4F4F4F)
+                        : Color(0xFFF5f5f5),
+                    fontFamily: 'Seg'
+                ),
+
+              ),
           ),
-          child: Text('$i', 
-           textAlign: TextAlign.center,
-           style: TextStyle(
-            fontSize: 23.0,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF4F4F4F),
-            fontFamily: 'Seg'
-            ),
-          
-          )
         );
+
+
       },
     );
   }).toList(), 
     options: CarouselOptions(
        height: 110.0,
        enlargeCenterPage: true,
-       viewportFraction: 0.5
+       viewportFraction: 0.5,
+
       
       ),
       )
@@ -323,7 +344,7 @@ class CoronaSlider extends StatefulWidget {
 
 class _CoronaSliderState extends State<CoronaSlider> {
 
-  double _value = 0.0;
+  double _value = 0.1;
 
   void _setvalue(double value) => setState(() => _value = value);
 
@@ -342,7 +363,7 @@ class _CoronaSliderState extends State<CoronaSlider> {
         thumbColor: Color(0xFFF58A97),
         thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0.0),
         overlayColor: Colors.purple.withAlpha(32),
-        overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
+        overlayShape: RoundSliderOverlayShape(overlayRadius: 10.0),
       ),
       child: Slider(
           value: _value,

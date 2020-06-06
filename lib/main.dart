@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:knowcorona/sneeze.dart';
 import 'package:knowcorona/social-dist.dart';
 import 'package:knowcorona/survivor.dart';
+import 'hydration.dart';
 import 'start.dart';
 import 'package:knowcorona/loading.dart';
 
@@ -21,6 +23,8 @@ class MyApp extends StatelessWidget {
         '/home' : (context) => MyHomePage(),
         '/start' : (context) => StartPage(),
         '/survey' : (context) => SocialDistance(),
+        '/hydration' : (context) => Hydration(),
+        '/sneeze' : (context) =>  Sneeze(),
         '/survivor' : (context) => SurvivorOverview()
       },
       debugShowCheckedModeBanner: false,
