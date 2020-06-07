@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knowcorona/social-dist.dart';
-
+import 'sizes_helper.dart';
 class StartPage extends StatefulWidget {
   @override
   _StartPageState createState() => _StartPageState();
@@ -9,6 +9,9 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
+
+    double phonewidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Container(
         constraints: BoxConstraints.expand(),
@@ -76,6 +79,7 @@ class _StartPageState extends State<StartPage> {
                        Navigator.pushNamed(
                           context,'/survey'
                         );
+
                      },
                      child: Container(
                     margin: EdgeInsets.fromLTRB(40, 5, 40, 0),
@@ -118,7 +122,11 @@ class _StartPageState extends State<StartPage> {
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context,'/blog'
+                    );
+                  },
                   child: Container(
                     margin: EdgeInsets.fromLTRB(40, 5, 40, 0),
                     padding: EdgeInsets.fromLTRB(10, 24, 10, 24),
@@ -183,7 +191,7 @@ class _StartPageState extends State<StartPage> {
                           text: TextSpan(
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 17
+                              fontSize: displayWidth(context) * 0.05,
                             ),
                             children: <TextSpan>[
                              TextSpan(text: 'Active: ',
@@ -210,7 +218,7 @@ class _StartPageState extends State<StartPage> {
                           text: TextSpan(
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 17
+                              fontSize: displayWidth(context) * 0.05
                             ),
                             children: <TextSpan>[
                              TextSpan(text: 'Deaths: ',
@@ -238,7 +246,7 @@ class _StartPageState extends State<StartPage> {
                           text: TextSpan(
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 17
+                              fontSize: displayWidth(context) * 0.05
                             ),
                             children: <TextSpan>[
                              TextSpan(text: 'Recoveries: ',
@@ -261,19 +269,26 @@ class _StartPageState extends State<StartPage> {
                         ),
                         ],
                         ),
-                        
-                        // *? This is the Pakistan flag
-                        Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Image(
-                              height: 80,
-                              image: AssetImage('Images/Vector-2.png',                            
-                            ),
-                            )
-                          ]
-                         
+
+                        Expanded(
+                            child:  Image(
+                              image: AssetImage('Images/Vector-2.png',
+                              ),
                         ),
+                        )
+                        // *? This is the Pakistan flag
+//                        Column(
+//                        crossAxisAlignment: CrossAxisAlignment.center,
+//                          children: <Widget>[
+//                            Expanded(
+//                              child:  Image(
+//                                image: AssetImage('Images/Vector-2.png',
+//                                ),
+//                              )
+//                            )
+//                          ]
+//
+//                        ),
                       ]
                     ),
                     decoration: BoxDecoration(

@@ -7,6 +7,7 @@ import 'package:knowcorona/survivor.dart';
 import 'hydration.dart';
 import 'start.dart';
 import 'package:knowcorona/loading.dart';
+import 'Blog.dart';
 
 
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/' : (context) => LoadingPage(),
         '/home' : (context) => MyHomePage(),
         '/start' : (context) => StartPage(),
+        '/blog' : (context) => BlogPage(),
         '/survey' : (context) => SocialDistance(),
         '/hydration' : (context) => Hydration(),
         '/sneeze' : (context) =>  Sneeze(),
@@ -108,7 +110,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           bottom: -20,
                           child: GestureDetector(
                             onTap: (){
-                              print('The Arrow is tapped');
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => StartPage()),
+                              );
                             },
                             child: Image(
                             image: AssetImage('Images/arrow.png'),

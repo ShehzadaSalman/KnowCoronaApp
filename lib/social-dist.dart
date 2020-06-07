@@ -20,7 +20,8 @@ class _SocialDistanceState extends State<SocialDistance> {
         child: Padding(
           padding: EdgeInsets.fromLTRB(0,10,0,10),
           child: Column(
-
+           mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
           Container(
           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -77,7 +78,7 @@ class _SocialDistanceState extends State<SocialDistance> {
               ),
             ),
             SizedBox(height:10),
-            Container(
+            Center(
             child: RaisedButton(
               color: Color(0xFF56CCF2),
                elevation: 8,
@@ -104,20 +105,23 @@ class _SocialDistanceState extends State<SocialDistance> {
             Container(
               padding: EdgeInsets.fromLTRB(25, 25, 60, 15),
              child: Column(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
+               mainAxisAlignment: MainAxisAlignment.start,
+               crossAxisAlignment: CrossAxisAlignment.start,
                children: <Widget>[
+
+
                  Container(
-                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                   padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                    constraints: BoxConstraints(minHeight: 50),
-                   
-                   child: Text('Do not Shake hand or Hug Each Other', 
-                   style: TextStyle(fontFamily: 'Seg', 
+
+                   child: Text('Do not Shake hand or Hug Each Other',
+                   style: TextStyle(fontFamily: 'Seg',
                    fontSize: 15,),
                    ),
-                   alignment: Alignment(0.0, 0.0),
+
                    decoration: BoxDecoration(
-                     color: Colors.grey[300], 
-                     borderRadius:  BorderRadius.all( Radius.circular(10.0)),
+                     color: Colors.grey[300],
+                     borderRadius:  BorderRadius.all( Radius.circular(5.0)),
                       boxShadow: [
                   BoxShadow(
                     color: Colors.grey,
@@ -125,23 +129,45 @@ class _SocialDistanceState extends State<SocialDistance> {
                     blurRadius: 6.0,
                   ),
                 ],
-                   
-                   
+
+
                    ),
-                
+
                  ),
                   SizedBox(height:15),
                   Container(
-                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                   constraints: BoxConstraints(minHeight: 50),
-                   
-                   child: Text('Greet Each Other with an Elbow Shake', 
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    constraints: BoxConstraints(minHeight: 50),
+                   child: Text('Greet Each Other with an Elbow Shake',
+                   style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
+                   ),
+
+                   decoration: BoxDecoration(
+                     color: Colors.grey[300],
+                     borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+                      boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.0), //(x,y)
+                    blurRadius: 6.0,
+                  ),
+                ],
+
+
+                   ),
+
+                 ),
+                  SizedBox(height:15),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    constraints: BoxConstraints(minHeight: 50),
+                   child: Text('Avoid going to large gatherings or Aggregations',
                    style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
                    ),
                    alignment: Alignment(0.0, 0.0),
                    decoration: BoxDecoration(
-                     color: Colors.grey[300], 
-                     borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+                     color: Colors.grey[300],
+                     borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
                       boxShadow: [
                   BoxShadow(
                     color: Colors.grey,
@@ -149,46 +175,24 @@ class _SocialDistanceState extends State<SocialDistance> {
                     blurRadius: 6.0,
                   ),
                 ],
-                   
-                   
+
+
                    ),
-                
+
                  ),
                   SizedBox(height:15),
                   Container(
-                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                   constraints: BoxConstraints(minHeight: 50),
-                   
-                   child: Text('Avoid going to large gatherings or Aggregations', 
-                   style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
-                   ),
-                   alignment: Alignment(0.0, 0.0),
-                   decoration: BoxDecoration(
-                     color: Colors.grey[300], 
-                     borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
-                      boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
-                   
-                   
-                   ),
-                
-                 ),
-                  SizedBox(height:15),
-                  Container(
-                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                   constraints: BoxConstraints(minHeight: 50),
-                   child: Text('Wear a face mask to protect others', 
+
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    constraints: BoxConstraints(minHeight: 50),
+
+                   child: Text('Wear a face mask to protect others',
                    textAlign: TextAlign.left,
                    style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
                    ),
-                   alignment: Alignment(0.0, 0.0),
+
                    decoration: BoxDecoration(
-                     color: Colors.grey[300], 
+                     color: Colors.grey[300],
                      borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
                       boxShadow: [
                   BoxShadow(
@@ -197,22 +201,20 @@ class _SocialDistanceState extends State<SocialDistance> {
                     blurRadius: 6.0,
                   ),
                 ],
-                   
-                   
+
+
                    ),
-                
+
                  ),
                  SizedBox(height:15),
-                     Container(
-                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                   constraints: BoxConstraints(minHeight: 50),
-                   
-                   child: Text('Avoid going out as much as possible', 
+                     Container(  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                       constraints: BoxConstraints(minHeight: 50),
+                   child: Text('Avoid going out as much as possible',
                    style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
                    ),
-                   alignment: Alignment(0.0, 0.0),
+
                    decoration: BoxDecoration(
-                     color: Colors.grey[300], 
+                     color: Colors.grey[300],
                      borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
                       boxShadow: [
                   BoxShadow(
@@ -221,18 +223,18 @@ class _SocialDistanceState extends State<SocialDistance> {
                     blurRadius: 6.0,
                   ),
                 ],
-                   
-                   
+
+
                    ),
-                
+
                  ),
-        
+
                ]
              )
             ),
 
             SizedBox(height:40),
-            Container(
+            Center(
             child: RaisedButton(
               color: Color(0xFFBDBDBD),
                elevation: 0,
@@ -258,7 +260,7 @@ class _SocialDistanceState extends State<SocialDistance> {
           ),
         ),
         // *? Padding ends here
-      ) 
+      )
       // *? Safa Area ends gere
       )
 
@@ -272,8 +274,8 @@ Widget surveyCarousel(){
 int _current = 0;
   List<SurveyTitle> surveylist = [
     SurveyTitle('Social Distancing',1, '/survey'),
-    SurveyTitle('Sneeze Cough',0, '/sneeze'),
-    SurveyTitle('Hydration',0, '/hydration'),
+//    SurveyTitle('Sneeze Cough',0, '/sneeze'),
+    SurveyTitle('Stay Hydrated',0, '/hydration'),
   ];
   List<String> surveys = ['Social Distancing' , 'Sneeze Cough', 'Sneeze Cough' , 'Hydrated'];
   return Container(
@@ -399,13 +401,15 @@ return  Container(
                 children: <Widget>[
                   Image(image: AssetImage('Images/Group-2.png'),),
                   SizedBox(height:30),
-                  Text('Social Distancing is the best \n way to STOP the disease.',
-                  style: TextStyle(
-                    fontSize: 21,
-                    fontFamily: 'Seg',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF2D9CDB),
-                  ),)
+                  Center(child:   Text('Social Distancing is the best \n way to STOP the disease.',
+                    style: TextStyle(
+                      fontSize: 21,
+                      fontFamily: 'Seg',
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF2D9CDB),
+                    ),)
+                  ),
+
                 ],
               ),
             ); 
