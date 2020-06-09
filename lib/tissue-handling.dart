@@ -1,19 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'SurveyTitle.dart';
 
 
 
-class Hydration extends StatefulWidget {
+class TissueHandling extends StatefulWidget {
   @override
-  _HydrationState createState() => _HydrationState();
+  _TissueHandlingState createState() => _TissueHandlingState();
 }
 
-class _HydrationState extends State<Hydration> {
+class _TissueHandlingState extends State<TissueHandling> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body:  SingleChildScrollView(
             child:SafeArea(
@@ -21,7 +20,7 @@ class _HydrationState extends State<Hydration> {
               child: Padding(
                 padding: EdgeInsets.fromLTRB(0,10,0,10),
                 child: Column(
-                 mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
@@ -48,14 +47,11 @@ class _HydrationState extends State<Hydration> {
                     SizedBox(height:30),
                     surveyInformation(),
                     SizedBox(height: 20),
-
                     Padding(padding: EdgeInsets.fromLTRB(25, 15, 25, 10),
 
-                      child: Text('1. During and after the COVID-19 pandemic, make sure you drink ______ glasses of water every day. ',
+                      child: Text('1. Every time you use and dispose of a tissue. Make sure you immediately ______.',
                         style: TextStyle(fontSize: 22, fontFamily: 'Seg'),),
                     ),
-
-
                     Container(
                         padding: EdgeInsets.fromLTRB(25, 25, 25, 15),
                         child: Column(
@@ -65,11 +61,11 @@ class _HydrationState extends State<Hydration> {
                               Container(
                                 padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                                 constraints: BoxConstraints(
-                                    minHeight: 45,
-                                    minWidth: 170,
+                                  minHeight: 45,
+                                  minWidth: 170,
                                 ),
 
-                                child: Text('A. 8-10',
+                                child: Text('A. Drink Some Water',
                                   style: TextStyle(fontFamily: 'Seg',
                                     fontSize: 16,),
                                 ),
@@ -97,7 +93,7 @@ class _HydrationState extends State<Hydration> {
                                   minWidth: 170,
                                 ),
 
-                                child: Text('B. 6-20',
+                                child: Text('B. Wash your hands',
                                   style: TextStyle(fontFamily: 'Seg',
                                     fontSize: 16,),
                                 ),
@@ -125,7 +121,7 @@ class _HydrationState extends State<Hydration> {
                                   minWidth: 170,
                                 ),
 
-                                child: Text('C. 20-40',
+                                child: Text('C. Hug your Friends',
                                   style: TextStyle(fontFamily: 'Seg',
                                     fontSize: 16,),
                                 ),
@@ -153,7 +149,7 @@ class _HydrationState extends State<Hydration> {
                                   minWidth: 170,
                                 ),
 
-                                child: Text('D. 2-3',
+                                child: Text('D. Call your Doctor',
                                   style: TextStyle(fontFamily: 'Seg',
                                     fontSize: 16,),
                                 ),
@@ -214,15 +210,14 @@ class _HydrationState extends State<Hydration> {
 }
 
 
-
 Widget surveyCarousel(){
   int _current = 0;
   List<SurveyTitle> surveylist = [
-    SurveyTitle('Stay Hydrated',1, '/hydration'),
+    SurveyTitle('Tissue Handling',1, '/tissue'),
+    SurveyTitle('Stay Hydrated',0, '/hydration'),
     SurveyTitle('Social Distancing',0, '/survey'),
     SurveyTitle('Sneeze Cough',0, '/sneeze'),
     SurveyTitle('Washing Hands', 0, '/washing'),
-    SurveyTitle('Tissue Handling',0, '/tissue'),
 
   ];
   List<String> surveys = ['Social Distancing' , 'Sneeze Cough', 'Sneeze Cough' , 'Hydrated'];
@@ -295,9 +290,9 @@ Widget surveyInformation(){
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Image(image: AssetImage('Images/Group 90.png'),),
+        Image(image: AssetImage('Images/Group 93.png'),),
         SizedBox(height:30),
-        Text('Keeping yourself hydrated strengthens your immune system for COVID-19.',
+        Text('Used tissues are one of the most dangerous sources of COVID-19.',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 21,

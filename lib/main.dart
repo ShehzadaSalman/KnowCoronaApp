@@ -4,14 +4,28 @@ import 'package:device_preview/device_preview.dart';
 import 'package:knowcorona/sneeze.dart';
 import 'package:knowcorona/social-dist.dart';
 import 'package:knowcorona/survivor.dart';
+import 'package:knowcorona/tissue-handling.dart';
+import 'package:knowcorona/washing-hands.dart';
 import 'hydration.dart';
 import 'start.dart';
 import 'package:knowcorona/loading.dart';
 import 'Blog.dart';
+import 'result.dart';
 
 
-
-void main() => runApp(DevicePreview(builder: (context) => MyApp()));
+//void main() => runApp(
+//
+//  DevicePreview(
+//    builder: (context) => MyApp(),
+//  ),
+//);
+//
+void main() => runApp(
+MaterialApp(
+  debugShowCheckedModeBanner: false,
+  home: MyApp(),
+)
+);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -27,7 +41,10 @@ class MyApp extends StatelessWidget {
         '/survey' : (context) => SocialDistance(),
         '/hydration' : (context) => Hydration(),
         '/sneeze' : (context) =>  Sneeze(),
-        '/survivor' : (context) => SurvivorOverview()
+        '/tissue' : (context) => TissueHandling(),
+        '/washing' : (context) => WashingHands(),
+        '/survivor' : (context) => SurvivorOverview(),
+        '/result' : (context) => ResultPage(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Welcome to KnowCorona',

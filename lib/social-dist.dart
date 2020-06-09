@@ -48,9 +48,9 @@ class _SocialDistanceState extends State<SocialDistance> {
             surveyInformation(),
             surveyTitleQuestion(),
             SizedBox(height: 40),
-            Container(width: 350,
-            child:   Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 0),
+            Center(
+            child:   Container(
+              width: 280,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(6, (index) => Text("${index}m",
@@ -67,7 +67,8 @@ class _SocialDistanceState extends State<SocialDistance> {
              SizedBox(height: 20),
             Container(
               padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-              child:  Text('Move the Bar to Indicate your \nbest guess for this tip.',
+              child: Center(
+                child: Text('Move the Bar to Indicate your \nbest guess for this tip.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 21,
@@ -75,7 +76,8 @@ class _SocialDistanceState extends State<SocialDistance> {
                     fontWeight: FontWeight.w800,
                     color: Color(0xFF2D9CDB),
                   ),
-              ),
+                ),
+              )
             ),
             SizedBox(height:10),
             Center(
@@ -92,7 +94,9 @@ class _SocialDistanceState extends State<SocialDistance> {
                 
               ),),
             
-              onPressed: (){}
+              onPressed:(){
+                Navigator.pushNamed(context, '/result');
+              }
             ),
             ),
             SizedBox(height: 50),
@@ -274,8 +278,10 @@ Widget surveyCarousel(){
 int _current = 0;
   List<SurveyTitle> surveylist = [
     SurveyTitle('Social Distancing',1, '/survey'),
-//    SurveyTitle('Sneeze Cough',0, '/sneeze'),
+    SurveyTitle('Sneeze Cough',0, '/sneeze'),
     SurveyTitle('Stay Hydrated',0, '/hydration'),
+    SurveyTitle('Washing Hands', 0, '/washing'),
+    SurveyTitle('Tissue Handling',0, '/tissue'),
   ];
   List<String> surveys = ['Social Distancing' , 'Sneeze Cough', 'Sneeze Cough' , 'Hydrated'];
   return Container(
@@ -310,7 +316,7 @@ int _current = 0;
               child: Text('${i.title}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 23.0,
+                    fontSize: 21.0,
                     fontWeight: FontWeight.w600,
 
                     color: _current == i.pagenumber
@@ -354,9 +360,10 @@ class _CoronaSliderState extends State<CoronaSlider> {
   @override
   Widget build(BuildContext context) {
 
-        return Container(
-          width: 320.0,
-          padding: EdgeInsets.fromLTRB(25, 5, 25, 0),
+        return Center(
+          child: Container(
+          width: 300.0,
+          padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
           child:  SliderTheme(
          data: SliderTheme.of(context).copyWith(
         activeTrackColor: Color(0xFFF58A97),
@@ -378,6 +385,7 @@ class _CoronaSliderState extends State<CoronaSlider> {
           
           ),
 ),
+          )
     );
   }
 }
@@ -387,7 +395,7 @@ Widget surveyTitleQuestion(){
   return   Padding(padding: EdgeInsets.fromLTRB(25, 15, 25, 10),
           
             child: Text('1. COVID-19 can spread by tiny droplets from the infected person travelling up to 2-3 meters \n \nKeep a distance of at least ____ meters when you meet someone. ',
-            style: TextStyle(fontSize: 22, fontFamily: 'Seg'),),
+            style: TextStyle(fontSize: 21, fontFamily: 'Seg'),),
             );
 }
 

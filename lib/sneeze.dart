@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'SurveyTitle.dart';
 
@@ -17,7 +18,8 @@ class _SneezeState extends State<Sneeze> {
               child: Padding(
                 padding: EdgeInsets.fromLTRB(0,10,0,10),
                 child: Column(
-
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -42,79 +44,33 @@ class _SneezeState extends State<Sneeze> {
                     surveyCarousel(),
                     SizedBox(height:30),
                     surveyInformation(),
-                    surveyTitleQuestion(),
-                    SizedBox(height: 40),
-                    Container(width: 350,
-                        child:   Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 0),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: List.generate(6, (index) => Text("${index}m",
-                                  style: TextStyle(
-                                      fontSize: 16, fontWeight:FontWeight.bold, fontFamily: 'Seg',
-                                      color: Color(0xFF828282)
-                                  )
-                              ),
-                              )),
-                        )
-                    ),
-
-                    CoronaSlider(),
                     SizedBox(height: 20),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-                      child:  Text('Move the Bar to Indicate your \nbest guess for this tip.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontFamily: 'Seg',
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF2D9CDB),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height:10),
-                    Container(
-                      child: RaisedButton(
-                          color: Color(0xFF56CCF2),
-                          elevation: 8,
-                          padding: EdgeInsets.fromLTRB(50, 14, 50, 14),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: Text('Submit' , style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-
-                          ),),
-
-                          onPressed: (){}
-                      ),
-                    ),
-                    SizedBox(height: 50),
                     Padding(padding: EdgeInsets.fromLTRB(25, 15, 25, 10),
 
-                      child: Text('2. Something else to consider for Social Distancing is to ____________.',
+                      child: Text('The one thing you must always avoid while sneezing or coughing is to cover your mouth and nose with your ',
                         style: TextStyle(fontSize: 22, fontFamily: 'Seg'),),
                     ),
-
                     Container(
-                        padding: EdgeInsets.fromLTRB(25, 25, 60, 15),
+                        padding: EdgeInsets.fromLTRB(25, 25, 25, 15),
                         child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                constraints: BoxConstraints(minHeight: 50),
+                                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                constraints: BoxConstraints(
+                                  minHeight: 45,
+                                  minWidth: 170,
+                                ),
 
-                                child: Text('Do not Shake hand or Hug Each Other',
+                                child: Text('A. Shirt',
                                   style: TextStyle(fontFamily: 'Seg',
-                                    fontSize: 15,),
+                                    fontSize: 16,),
                                 ),
-                                alignment: Alignment(0.0, 0.0),
+
                                 decoration: BoxDecoration(
                                   color: Colors.grey[300],
-                                  borderRadius:  BorderRadius.all( Radius.circular(10.0)),
+                                  borderRadius:  BorderRadius.all( Radius.circular(5.0)),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey,
@@ -129,16 +85,20 @@ class _SneezeState extends State<Sneeze> {
                               ),
                               SizedBox(height:15),
                               Container(
-                                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                constraints: BoxConstraints(minHeight: 50),
-
-                                child: Text('Greet Each Other with an Elbow Shake',
-                                  style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
+                                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                constraints: BoxConstraints(
+                                  minHeight: 45,
+                                  minWidth: 170,
                                 ),
-                                alignment: Alignment(0.0, 0.0),
+
+                                child: Text('B. Hands',
+                                  style: TextStyle(fontFamily: 'Seg',
+                                    fontSize: 16,),
+                                ),
+
                                 decoration: BoxDecoration(
                                   color: Colors.grey[300],
-                                  borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+                                  borderRadius:  BorderRadius.all( Radius.circular(5.0)),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey,
@@ -153,16 +113,20 @@ class _SneezeState extends State<Sneeze> {
                               ),
                               SizedBox(height:15),
                               Container(
-                                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                constraints: BoxConstraints(minHeight: 50),
-
-                                child: Text('Avoid going to large gatherings or Aggregations',
-                                  style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
+                                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                constraints: BoxConstraints(
+                                  minHeight: 45,
+                                  minWidth: 170,
                                 ),
-                                alignment: Alignment(0.0, 0.0),
+
+                                child: Text('C. Elbow',
+                                  style: TextStyle(fontFamily: 'Seg',
+                                    fontSize: 16,),
+                                ),
+
                                 decoration: BoxDecoration(
                                   color: Colors.grey[300],
-                                  borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+                                  borderRadius:  BorderRadius.all( Radius.circular(5.0)),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey,
@@ -177,16 +141,20 @@ class _SneezeState extends State<Sneeze> {
                               ),
                               SizedBox(height:15),
                               Container(
-                                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                constraints: BoxConstraints(minHeight: 50),
-                                child: Text('Wear a face mask to protect others',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
+                                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                constraints: BoxConstraints(
+                                  minHeight: 45,
+                                  minWidth: 170,
                                 ),
-                                alignment: Alignment(0.0, 0.0),
+
+                                child: Text('D. Tissue',
+                                  style: TextStyle(fontFamily: 'Seg',
+                                    fontSize: 16,),
+                                ),
+
                                 decoration: BoxDecoration(
                                   color: Colors.grey[300],
-                                  borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+                                  borderRadius:  BorderRadius.all( Radius.circular(5.0)),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey,
@@ -199,37 +167,12 @@ class _SneezeState extends State<Sneeze> {
                                 ),
 
                               ),
-                              SizedBox(height:15),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                constraints: BoxConstraints(minHeight: 50),
-
-                                child: Text('Avoid going out as much as possible',
-                                  style: TextStyle(fontFamily: 'Seg', fontSize: 15,),
-                                ),
-                                alignment: Alignment(0.0, 0.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[300],
-                                  borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      offset: Offset(0.0, 1.0), //(x,y)
-                                      blurRadius: 6.0,
-                                    ),
-                                  ],
-
-
-                                ),
-
-                              ),
-
                             ]
                         )
                     ),
 
                     SizedBox(height:40),
-                    Container(
+                    Center(
                       child: RaisedButton(
                           color: Color(0xFFBDBDBD),
                           elevation: 0,
@@ -261,21 +204,19 @@ class _SneezeState extends State<Sneeze> {
 
     );
 
-
-
-
   }
 }
-
-
 
 
 Widget surveyCarousel(){
   int _current = 0;
   List<SurveyTitle> surveylist = [
     SurveyTitle('Sneeze Cough',1, '/sneeze'),
+    SurveyTitle('Tissue Handling',0, '/tissue'),
+    SurveyTitle('Stay Hydrated',0, '/hydration'),
     SurveyTitle('Social Distancing',0, '/survey'),
-    SurveyTitle('Hydration',0, '/hydration'),
+    SurveyTitle('Washing Hands', 0, '/washing'),
+
   ];
   List<String> surveys = ['Social Distancing' , 'Sneeze Cough', 'Sneeze Cough' , 'Hydrated'];
   return Container(
@@ -310,7 +251,7 @@ Widget surveyCarousel(){
                   child: Text('${i.title}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 23.0,
+                        fontSize: 21.0,
                         fontWeight: FontWeight.w600,
 
                         color: _current == i.pagenumber
@@ -338,70 +279,19 @@ Widget surveyCarousel(){
   );
 }
 
-class CoronaSlider extends StatefulWidget {
-  @override
-  _CoronaSliderState createState() => _CoronaSliderState();
-}
-
-
-class _CoronaSliderState extends State<CoronaSlider> {
-
-  double _value = 0.1;
-
-  void _setvalue(double value) => setState(() => _value = value);
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Container(
-      width: 320.0,
-      padding: EdgeInsets.fromLTRB(25, 5, 25, 0),
-      child:  SliderTheme(
-        data: SliderTheme.of(context).copyWith(
-          activeTrackColor: Color(0xFFF58A97),
-          inactiveTrackColor: Colors.grey[400],
-          trackHeight: 25.0,
-          thumbColor: Color(0xFFF58A97),
-          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0.0),
-          overlayColor: Colors.purple.withAlpha(32),
-          overlayShape: RoundSliderOverlayShape(overlayRadius: 10.0),
-        ),
-        child: Slider(
-            value: _value,
-            divisions: 5,
-            onChanged: (value) {
-              setState(() {
-                _value = value;
-              });
-            }
-
-        ),
-      ),
-    );
-  }
-}
-
-// *? This is the Survey general question
-Widget surveyTitleQuestion(){
-  return   Padding(padding: EdgeInsets.fromLTRB(25, 15, 25, 10),
-
-    child: Text('1. COVID-19 can spread by tiny droplets from the infected person travelling up to 2-3 meters \n \nKeep a distance of at least ____ meters when you meet someone. ',
-      style: TextStyle(fontSize: 22, fontFamily: 'Seg'),),
-  );
-}
 
 // *? This is the Survey Information Widget
 
 Widget surveyInformation(){
   return  Container(
-    padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+    padding: EdgeInsets.fromLTRB(15, 5, 15, 10),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Image(image: AssetImage('Images/Group-2.png'),),
+        Image(image: AssetImage('Images/Group-1.png'),),
         SizedBox(height:30),
-        Text('Social Distancing is the best \n way to STOP the disease.',
+        Text('The best way to protect others is to know how to sneeze or cough during the pandemic..',
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 21,
             fontFamily: 'Seg',
@@ -437,3 +327,4 @@ Widget navigationTab(){
     ),
   );
 }
+
