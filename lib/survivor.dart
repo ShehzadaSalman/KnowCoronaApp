@@ -42,9 +42,9 @@ class SurvivorOverview extends StatelessWidget {
                     runSpacing: 20.0,
                     children: <Widget>[
                       coronaBadges('Images/Group-2.png', 1),
-                      coronaBadges('Images/Group 91.png', 0),
-                      coronaBadges('Images/Group 93.png', 0),
-                      coronaBadges('Images/Group 90.png', 1),
+                      coronaBadges('Images/Group-91.png', 0),
+                      coronaBadges('Images/Group-93.png', 0),
+                      coronaBadges('Images/Group-90.png', 1),
                       coronaBadges('Images/Group-1.png', 1),
                     ],
                   ),

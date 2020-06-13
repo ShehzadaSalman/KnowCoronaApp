@@ -771,7 +771,7 @@ Widget surveyCarousel(){
 
               return InkWell(
                 onTap: (){
-                  Navigator.pushNamed(context, '${i.route}');
+                  Navigator.pushReplacementNamed(context, '${i.route}');
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -832,7 +832,7 @@ Widget surveyInformation(){
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Image(image: AssetImage('Images/Group 91.png'),),
+        Image(image: AssetImage('Images/Group-91.png'),),
         SizedBox(height:30),
         Text('Can you guess the 5-step process for the COVID-destroyer hand wash?',
           textAlign: TextAlign.center,

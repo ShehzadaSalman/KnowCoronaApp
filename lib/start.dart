@@ -70,96 +70,63 @@ class _StartPageState extends State<StartPage> {
                
                    // *? This is the child column A-2.2
                  Container(
+                   padding: EdgeInsets.symmetric(horizontal: 25),
                    child:   Column(
                      children: <Widget>[
-  
-                
-                   InkWell(
-                     onTap: (){
-                       Navigator.pushNamed(
-                          context,'/survey'
-                        );
+                    SizedBox(
+                      width: double.infinity,
+                      child: RaisedButton(
+                        color: Color(0xFF6FCF97),
+                        padding: EdgeInsets.symmetric(vertical: 25),
+                        onPressed: (){
+                          Navigator.pushNamed(
+                              context,'/survey'
+                          );
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          "Resist",
+                          style: TextStyle(
+                            fontFamily: "Seg",
+                            fontSize: 30.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            inherit: false,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height:10),
 
-                     },
-                     child: Container(
-                    margin: EdgeInsets.fromLTRB(40, 5, 40, 0),
-                    padding: EdgeInsets.fromLTRB(10, 24, 10, 24),
-                    child: Center(
-                      child: Text(
-                        "Resist",
-                        style: TextStyle(
-                          fontFamily: "Seg",
-                          fontSize: 30.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          inherit: false,
-                        ),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF6FCF97),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(17.0),
-                      ),
-                      boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                    
-                    
-                    ),
-                  ),
-              
-                   ),
-              
-                 SizedBox(height:10),
-                  
-                  InkWell(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20.0),
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context,'/blog'
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(40, 5, 40, 0),
-                    padding: EdgeInsets.fromLTRB(10, 24, 10, 24),
-                    child: Center(
-                      child: Text(
-                        "Inspire",
-                        style: TextStyle(
-                          fontFamily: "Seg",
-                          fontSize: 30.0,
-                          color: Color(0xFF6FCF97),
-                          fontWeight: FontWeight.bold,
-                          inherit: false,
-                        ),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(17.0),
-                      ),
-                      boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                    
-                    
-                    ),
-                  ),
-                )
+                       SizedBox(
+                         width: double.infinity,
+                         child: RaisedButton(
+                           color: Color(0xFFFFFFFF),
+                           padding: EdgeInsets.symmetric(vertical: 25),
+                           onPressed: (){
+                             Navigator.pushNamed(
+                                 context,'/blog'
+                             );
+                           },
+                           shape: RoundedRectangleBorder(
+                             borderRadius: BorderRadius.circular(10),
+                           ),
+                           child: Text(
+                               "Inspire",
+                               style: TextStyle(
+                               fontFamily: "Seg",
+                               fontSize: 30.0,
+                               color: Color(0xFF6FCF97),
+                               fontWeight: FontWeight.bold,
+                               inherit: false,
+                             ),
+                           ),
+                         ),
+                       ),
+
+
                      ],
                    ),
                  

@@ -292,7 +292,7 @@ int _current = 0;
 
         return InkWell(
           onTap: (){
-            Navigator.pushNamed(context, '${i.route}');
+            Navigator.pushReplacementNamed(context, '${i.route}');
           },
           child: Container(
               width: MediaQuery.of(context).size.width,

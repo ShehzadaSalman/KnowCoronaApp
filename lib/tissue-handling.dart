@@ -34,7 +34,7 @@ class _TissueHandlingState extends State<TissueHandling> {
                           ),
                           GestureDetector(
                               onTap: (){
-                                Navigator.pushNamed(context, '/survivor');
+                                Navigator.pushReplacementNamed(context, '/survivor');
                               },
                               child: Image(image: AssetImage('Images/rewardtab.png'),)
                           )
@@ -290,7 +290,7 @@ Widget surveyInformation(){
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Image(image: AssetImage('Images/Group 93.png'),),
+        Image(image: AssetImage('Images/Group-93.png'),),
         SizedBox(height:30),
         Text('Used tissues are one of the most dangerous sources of COVID-19.',
           textAlign: TextAlign.center,
