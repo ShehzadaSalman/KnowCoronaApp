@@ -339,7 +339,24 @@ Widget optionWidget(){
 
 
 
-
+Container(
+padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+child:  Align(
+alignment: Alignment.topLeft,
+child: Row(
+mainAxisAlignment: MainAxisAlignment.spaceBetween,
+children: <Widget>[
+GestureDetector(
+onTap: (){
+Navigator.pop(context);
+},
+child: Image(image: AssetImage('Images/Vector.png'),),
+),
+SizedBox(height: 10, width: 10,)
+],
+),
+)
+),
 
 
 

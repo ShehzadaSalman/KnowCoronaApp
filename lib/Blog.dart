@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:async';
 
 class BlogPage extends StatefulWidget {
   BlogPage({Key key}) : super(key: key);
@@ -8,70 +10,48 @@ class BlogPage extends StatefulWidget {
   _BlogPageState createState() => _BlogPageState();
 }
 
+
+
 class _BlogPageState extends State<BlogPage> {
+
+  WebViewController _controller;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 10),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-               child:  Align(
-              alignment: Alignment.topLeft,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.pop(context);
-                        },
-                        child: Image(image: AssetImage('Images/Vector.png'),),
-                      ),
-                      SizedBox(height: 10, width: 10,)
-                    ],
-                  ),
-               )
-              ),
-
-            SizedBox(height: 30),
-               Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Text('#CovidDoctors',
-                              textAlign: TextAlign.left,
-                              style:TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Seg',
-                                fontSize: 21,
-                              )),
-                          Image(image: AssetImage('Images/doctor.png'),)
-                        ],
-                      ),
-                    ),
-               SizedBox(height: 30),
-               Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-
-                          Image(image: AssetImage('Images/secondblog.png'),)
-                        ],
-                      ),
+      backgroundColor: Colors.white,
+      body: Column(
+        children: <Widget>[
+          SizedBox(height: 25),
+          Container(
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+              child:  Align(
+                alignment: Alignment.topLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Image(image: AssetImage('Images/Vector.png'),),
                     ),
 
-
-              ],
+                  ],
+                ),
+              )
+          ),
+          Expanded(
+            child: WebView(
+              initialUrl: 'http://shahzada.website/SocialFeedCorona/',
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller = webViewController;
+              },
             ),
           ),
-        )
-
-      )
+        ],
+      ),
     );
   }
 }
