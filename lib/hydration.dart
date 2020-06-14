@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -45,15 +44,12 @@ int quizIndex = 0;
     var json = jsonDecode(body);
     // set State to create a QuizHelper class object from the json.
     setState(() {
-      quizHelper = QuizHelper.fromJson(json);
-      quizHelper.results[0].incorrectAnswers.add(
-        quizHelper.results[0].correctAnswer
+          quizHelper = QuizHelper.fromJson(json);
+          quizHelper.results[0].incorrectAnswers.add(
+              quizHelper.results[0].correctAnswer
       );
-
       quizHelper.results[0].incorrectAnswers.shuffle();
-
     });
-
   }
 
   // The method to check the right answer of the quiz
@@ -62,7 +58,6 @@ int quizIndex = 0;
     setState(() {
     if(correctAnswer == answer){
      print('Correct answer'); }
-
     else { print('Wrong Answer');}
     }
     );
@@ -117,7 +112,7 @@ int quizIndex = 0;
                            itemCount: quizHelper.results.length,
                            itemBuilder: (context, index){
                              return Container(
-                               margin: EdgeInsets.only(bottom: 30),
+                               margin: EdgeInsets.only(bottom: 50),
                                child: Column(
                                  crossAxisAlignment: CrossAxisAlignment.start,
                                  children: <Widget>[
@@ -143,6 +138,25 @@ int quizIndex = 0;
                                            ),
                                          );
                                        }).toList(),
+                                     ),
+                                   ),
+                                   // The submit button comes here
+                                   SizedBox(height:10),
+                                   Center(
+                                     child: RaisedButton(
+                                         color: Color(0xFFBDBDBD),
+                                         elevation: 0,
+                                         padding: EdgeInsets.fromLTRB(50, 14, 50, 14),
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius: BorderRadius.circular(15)
+                                         ),
+                                         child: Text('Submit' , style: TextStyle(
+                                           fontSize: 20,
+                                           color: Colors.white,
+
+                                         ),),
+
+                                         onPressed: (){}
                                      ),
                                    ),
 
