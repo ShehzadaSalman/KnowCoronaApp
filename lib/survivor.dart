@@ -1,13 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
 
 
-class SurvivorOverview extends StatelessWidget {
+class SurvivorOverview extends StatefulWidget {
   const SurvivorOverview({Key key}) : super(key: key);
 
   @override
+  _SurvivorOverviewState createState() => _SurvivorOverviewState();
+}
+
+class _SurvivorOverviewState extends State<SurvivorOverview> {
+  SharedPreferences sharedPreferences;
+  int sectionsCompleted = 0;
+  bool varHydratedCheck;
+  bool testVariable;
+  bool testVariabletwo;
+  bool testVariablethree;
+  bool testVariablefour;
+  bool testVariablefive;
+//  bool hydratedValue = false;
+//  bool sneezeValue = false;
+//  bool socialValue = false;
+//  bool tissueValue = false;
+//  bool washingValue = false;
+
+  @override
+  void initState() {
+    initializeSharedPreferences();
+    super.initState();
+  }
+
+
+
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+
+
+    return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -41,15 +73,15 @@ class SurvivorOverview extends StatelessWidget {
                     alignment: WrapAlignment.center,
                     runSpacing: 20.0,
                     children: <Widget>[
-                      coronaBadges('Images/Group-2.png', 1),
-                      coronaBadges('Images/Group-91.png', 0),
-                      coronaBadges('Images/Group-93.png', 0),
-                      coronaBadges('Images/Group-90.png', 1),
-                      coronaBadges('Images/Group-1.png', 1),
+                      coronaBadges('Images/Group-2.png', testVariable, '/survey',context),
+                      coronaBadges('Images/Group-91.png', testVariablefive,'/washing', context),
+                      coronaBadges('Images/Group-93.png', testVariablefour,  '/tissue', context),
+                      coronaBadges('Images/Group-90.png', testVariabletwo,'/hydration', context),
+                      coronaBadges('Images/Group-1.png', testVariablethree, '/sneeze',context),
                     ],
                   ),
                   SizedBox(height: 35),
-                  Text('3/5', style: TextStyle(
+                  Text('$sectionsCompleted/5', style: TextStyle(
                     fontFamily: 'Seg',
                     color: Color(0xFF4F4F4F),
                     fontSize: 38,
@@ -152,7 +184,7 @@ class SurvivorOverview extends StatelessWidget {
                     ),
                   ),
 
-
+                  SizedBox(height: 30),
 
                 ]
 
@@ -164,29 +196,119 @@ class SurvivorOverview extends StatelessWidget {
 
 
   }
+
+//   checkHydrated() async{
+//     sharedPreferences = await SharedPreferences.getInstance();
+//
+//      hydratedValue = sharedPreferences.getBool('stayHydratedCompleted');
+//      sneezeValue = sharedPreferences.getBool('sneezeSectionCompleted');
+//      socialValue = sharedPreferences.getBool('socialDistanceCompleted');
+//      tissueValue = sharedPreferences.getBool('tissueHandlingCompleted');
+//      washingValue = sharedPreferences.getBool('washingHandsCompleted');
+//  }
+
+  void initializeSharedPreferences() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    List<bool> allSectionsCompleted = new List();
+    allSectionsCompleted.add(sharedPreferences.getBool('stayHydratedCompleted'));
+    allSectionsCompleted.add(sharedPreferences.getBool('sneezeSectionCompleted'));
+    allSectionsCompleted.add(sharedPreferences.getBool('socialDistanceCompleted'));
+    allSectionsCompleted.add(sharedPreferences.getBool('tissueHandlingCompleted'));
+    allSectionsCompleted.add(sharedPreferences.getBool('washingHandsCompleted'));
+
+    if(sharedPreferences.getBool('stayHydratedCompleted') != null){
+      testVariabletwo = true;
+    }else{
+      testVariabletwo = false;
+    }
+
+
+  if(sharedPreferences.getBool('sneezeSectionCompleted') != null){
+    testVariablethree = true;
+  } else{
+    testVariablethree = false;
+  }
+
+
+if(sharedPreferences.getBool('socialDistanceCompleted')  != null){
+  testVariable = true;
+    }else{ testVariable = false; }
+
+
+       if(sharedPreferences.getBool('tissueHandlingCompleted') != null){
+         testVariablefour = true;
+       }else{
+         testVariablefour = false;
+       }
+
+
+
+    if(sharedPreferences.getBool('washingHandsCompleted') != null){
+      testVariablefive = true;
+    }else{testVariablefive = false; }
+
+
+
+
+
+    allSectionsCompleted.forEach((isSectionCompleted) {
+
+         if(isSectionCompleted != null){
+           if(isSectionCompleted == true){
+             sectionsCompleted++;
+           }
+         }
+
+//      if(isSectionCompleted != null){
+//        if(isSectionCompleted){
+//          // do nothing, move to next
+//        } else{
+//          allSectionsCompleted = false;
+//        }
+//      } else{
+//        allSectionsCompleted = false;
+//      }
+      print('Is the Section completed: ' + isSectionCompleted.toString());
+
+    });
+
+    setState(() {
+    });
+
+  }
 }
 
-Widget coronaBadges(String imgAddress, int borderColor){
-    int _decidecolor = 0;
-  return  Container(
-    margin: EdgeInsets.symmetric(horizontal: 10),
-    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-    height: 55,
-    width: 85,
-    child: Image(image: AssetImage(imgAddress),),
-    decoration: BoxDecoration(
-      color: Color(0xFFE3E6EC),
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-            color:
-            _decidecolor == borderColor
-                ? Color(0xFFE3E6EC)
-                : Color(0xFF6FCF97),
-            spreadRadius: 3),
-      ],
+Widget coronaBadges(String imgAddress, bool borderColor, String routeName, BuildContext  context){
 
-    ),
-  );
+    bool _decidecolor = false;
+    return InkWell(
+      onTap: () {
+        Navigator.popAndPushNamed(context, routeName);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+        height: 55,
+        width: 85,
+        child:
+        Image(image: AssetImage(imgAddress),
+        ),
+        decoration: BoxDecoration(
+          color: Color(0xFFE3E6EC),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                color: borderColor
+                    ? Color(0xFF6FCF97)
+                    : Color(0xFFE3E6EC),
+
+                spreadRadius: 3),
+          ],
+
+        ),
+      ),
+    );
 
 }
+
