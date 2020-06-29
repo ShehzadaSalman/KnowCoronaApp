@@ -17,7 +17,7 @@ class Hydration extends StatefulWidget {
 class _HydrationState extends State<Hydration> {
 
   // we do all the here before the app is started
-  String apiURL = "https://shahzada.website/covid/public/secondapi";
+  String apiURL = "https://shahzada.website/covid/public/api/secondapi";
   List<String> answerSelected;
   List<bool> submitEnabled;
   List<bool> submitPressed;
@@ -27,7 +27,7 @@ class _HydrationState extends State<Hydration> {
   int correctAttempted = 0;
   double stayHydratedMarks = 0.0;
   SharedPreferences sharedPreferences;
-
+ 
 QuizHelper quizHelper;
 
 int quizIndex = 0;
@@ -43,6 +43,9 @@ int quizIndex = 0;
     super.initState();
 
   }
+
+   
+
 
 
 
@@ -75,6 +78,28 @@ int quizIndex = 0;
     });
   }
 
+
+
+
+
+
+
+
+  makePostRequest() async{
+    String postURL = "http://shahzada.website/covid/public/api/storingflutter";
+    Map<String, String> headers = {"Content-type": "application/json"};
+    String json = '{"title": "Hello", "body": "body text", "userId": 1}';
+
+    http.Response response = await http.post(postURL,headers: headers, body: json);
+
+    if(response.statusCode == 201){
+      print(response.body);
+    }else{
+      throw Exception('Failed to post data to the laravel application');
+    }
+  }
+
+
   // The method to check the right answer of the quiz
   bool checkAnswer(answer, index){
     bool isAnswerCorrect = false;
@@ -97,6 +122,7 @@ int quizIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+         checkAlbum('Salman');
    if(quizHelper != null){
      return Scaffold(
          body:  SingleChildScrollView(
@@ -535,5 +561,24 @@ Widget surveyInformation(){
   );
 }
 
+  
+
+checkAlbum(String title) async{
+  final http.Response response = await http.post(
+    'https://jsonplaceholder.typicode.com/albums',
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'title': title,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    return "The data has been posted";
+  } else {
+    throw Exception('Failed to create album.');
+  }
 
 
+}

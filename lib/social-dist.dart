@@ -14,7 +14,7 @@ class SocialDistance extends StatefulWidget {
 }
 
 class _SocialDistanceState extends State<SocialDistance> {
-  String apiURL = "https://shahzada.website/covid/public/social";
+  String apiURL = "https://shahzada.website/covid/public/api/social";
 
   List<String> answerSelected;
   List<bool> submitEnabled;
@@ -22,6 +22,7 @@ class _SocialDistanceState extends State<SocialDistance> {
   List<bool> questionAttempted;
 
   bool socialDistanceCompleted = false;
+  bool sliderSubmitStatus = false;
   int correctAttempted = 0;
   double socialDistanceMarks = 0.0;
   SharedPreferences sharedPreferences;
@@ -73,6 +74,23 @@ class _SocialDistanceState extends State<SocialDistance> {
 //      quizHelper.results[0].incorrectAnswers.shuffle();
     });
   }
+
+// posting data for slider 
+  makePostRequest() async{
+    String postURL = "https://jsonplaceholder.typicode.com/albums";
+    Map<String, String> headers = {"Content-type": "application/json"};
+    String json = '{"title": "Hello"}';
+
+    http.Response response = await http.post(postURL,headers: headers, body: json);
+
+    if(response.statusCode == 201){
+      print(response.body);
+    }else{
+      throw Exception('Failed to post data to the laravel application');
+    }
+  }
+
+
 
   // The method to check the right answer of the quiz
   bool checkAnswer(answer, index){
@@ -137,12 +155,12 @@ class _SocialDistanceState extends State<SocialDistance> {
                       SizedBox(height: 40),
                       Center(
                           child:   Container(
-                            width: 280,
+                            width: 270,
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: List.generate(6, (index) => Text("${index}m",
+                                children: List.generate(5, (index) => Text("${index}m",
                                     style: TextStyle(
-                                        fontSize: 16, fontWeight:FontWeight.bold, fontFamily: 'Seg',
+                                        fontSize: 15, fontWeight:FontWeight.bold, fontFamily: 'Seg',
                                         color: Color(0xFF828282)
                                     )
                                 ),
@@ -151,23 +169,8 @@ class _SocialDistanceState extends State<SocialDistance> {
                       ),
 
                       CoronaSlider(),
-                      SizedBox(height: 20),
-                      Container(
-                          padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-                          child: Center(
-                            child: Text('Move the Bar to Indicate your \nbest guess for this tip.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 21,
-                                fontFamily: 'Seg',
-                                fontWeight: FontWeight.w800,
-                                color: Color(0xFF2D9CDB),
-                              ),
-                            ),
-                          )
-                      ),
-                      SizedBox(height:10),
-
+                      // Stats for the slider
+                    
                       SizedBox(height: 50),
                       Container(
                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -519,22 +522,25 @@ class CoronaSlider extends StatefulWidget {
 
 
 class _CoronaSliderState extends State<CoronaSlider> {
-
-  double _value = 0.1;
-
+ bool isSliderSubmitted = false;
+  double _value = 0.25;
+  Color sliderColor = Color(0xFFF58A97);
+  bool sliderSubmitStatus = false;
+  bool showSliderStats = false;
   void _setvalue(double value) => setState(() => _value = value);
 
 
   @override
   Widget build(BuildContext context) {
 
-        return Center(
-          child: Container(
-          width: 300.0,
+        return Column(
+          children: <Widget>[
+          Container(
+          width: 290.0,
           padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
           child:  SliderTheme(
          data: SliderTheme.of(context).copyWith(
-        activeTrackColor: Color(0xFFF58A97),
+        activeTrackColor: sliderColor,
         inactiveTrackColor: Colors.grey[400],
         trackHeight: 25.0,
         thumbColor: Color(0xFFF58A97),
@@ -544,16 +550,175 @@ class _CoronaSliderState extends State<CoronaSlider> {
       ),
       child: Slider(
           value: _value,
-          divisions: 5,
+          divisions: 4,
           onChanged: (value) {
             setState(() {
-              _value = value;
+              if(isSliderSubmitted)
+              {
+               sliderSubmitStatus = false;
+              }else{ 
+             
+             sliderSubmitStatus = true;
+            
+        
+              }
+
+               _value = value;
+              
+              if(value < 0.4){
+                sliderColor = Color(0xFFF58A97);
+              }else{
+               sliderColor = Color(0xFF56CCF2);
+             
+              }
+               print(_value);
+
+              
+              
+              
+              
+            
             });
           }
           
           ),
 ),
-          )
+          ),
+            SizedBox(height: 7),
+            Center(
+            child: Visibility(
+                visible: showSliderStats,
+                child: Container(
+                width: 270,
+                child: Row(
+                    mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                          Column(
+                        children: <Widget>[
+                            Icon(
+                          Icons.cancel,
+                          color:Color(0xFFF4364F),
+                          size: 24.0,
+                        ),
+                        Text('5%', style: TextStyle(
+                          color: Color(0xFFF58A97)
+                        ),) 
+                        ],
+                      ),
+                          Column(
+                        children: <Widget>[
+                            Icon(
+                          Icons.cancel,
+                          color:Color(0xFFF4364F),
+                          size: 24.0,
+                        ),
+                        Text('64%', style: TextStyle(
+                          color: Color(0xFFF58A97)
+                        ),) 
+                        ],
+                      ),
+                          Column(
+                        children: <Widget>[
+                            Icon(
+                          Icons.check_circle,
+                          color:Color(0xFF219653),
+                          size: 24.0,
+                        ),
+                        Text('16%', style: TextStyle(
+                          color: Color(0xFF6FCF97)
+                        ),) 
+                        ],
+                      ),
+                          Column(
+                        children: <Widget>[
+                            Icon(
+                          Icons.cancel,
+                          color:Color(0xFF219653),
+                          size: 24.0,
+                        ),
+                        Text('4%', style: TextStyle(
+                          color: Color(0xFF6FCF97)
+                        ),) 
+                        ],
+                      ),
+                          Column(
+                        children: <Widget>[
+                            Icon(
+                          Icons.cancel,
+                          color:Color(0xFF219653),
+                          size: 24.0,
+                        ),
+                        Text('6%', style: TextStyle(
+                          color: Color(0xFF6FCF97)
+                        ),) 
+                        ],
+                      ),
+                      
+                    ],
+                    ),
+              ),
+            )
+        ),
+        
+                      SizedBox(height: 20),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+                          child: Center(
+                            child: Text('Move the Bar to Indicate your \nbest guess for this tip.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 21,
+                                fontFamily: 'Seg',
+                                fontWeight: FontWeight.w800,
+                                color: Color(0xFF2D9CDB),
+                              ),
+                            ),
+                          )
+                      ),
+                      SizedBox(height:10),
+                    
+                       Center(
+                         child: sliderSubmitStatus ?  RaisedButton(
+                          color: Color(0xFF56CCF2),
+                          elevation: 3,
+                          padding: EdgeInsets.fromLTRB(50, 14, 50, 14),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)
+                          ),
+                          child: Text('Submit' , style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+
+                          ),),
+
+                          onPressed: (){
+                            setState(() {
+                                sliderSubmitStatus = false;
+                                isSliderSubmitted = true;
+                                showSliderStats = true;
+
+                            });
+                           
+                          }
+                    ) :  RaisedButton(
+                          color: Color(0xFFBDBDBD),
+                          elevation: 0,
+                          padding: EdgeInsets.fromLTRB(50, 14, 50, 14),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)
+                          ),
+                          child: Text('Submit' , style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+
+                          ),),
+
+                          onPressed: (){
+                        
+                          }
+                    ), 
+                       ),
+          ]
     );
   }
 }

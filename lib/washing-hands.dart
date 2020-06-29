@@ -18,7 +18,7 @@ class WashingHands extends StatefulWidget {
 
 class _WashingHandsState extends State<WashingHands> {
 
-  String apiURL = "https://shahzada.website/covid/public/washing";
+  String apiURL = "https://shahzada.website/covid/public/api/washing";
   List<String> answerSelected;
   List<bool> submitEnabled;
   List<bool> submitPressed;

@@ -16,7 +16,7 @@ class TissueHandling extends StatefulWidget {
 
 class _TissueHandlingState extends State<TissueHandling> {
 
-  String apiURL = "https://shahzada.website/covid/public/tissue";
+  String apiURL = "https://shahzada.website/covid/public/api/tissue";
   List<String> answerSelected;
   List<bool> submitEnabled;
   List<bool> submitPressed;

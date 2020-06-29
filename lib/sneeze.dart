@@ -14,7 +14,7 @@ class Sneeze extends StatefulWidget {
 
 class _SneezeState extends State<Sneeze> {
 
-  String apiURL = "https://shahzada.website/covid/public/sneeze";
+  String apiURL = "https://shahzada.website/covid/public/api/sneeze";
   List<String> answerSelected;
   List<bool> submitEnabled;
   List<bool> submitPressed;
