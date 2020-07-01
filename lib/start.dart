@@ -87,7 +87,7 @@ class _StartPageState extends State<StartPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          "Resist",
+                          "Purify",
                           style: TextStyle(
                             fontFamily: "Seg",
                             fontSize: 30.0,

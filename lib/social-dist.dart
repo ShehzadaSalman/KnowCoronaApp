@@ -15,19 +15,23 @@ class SocialDistance extends StatefulWidget {
 
 class _SocialDistanceState extends State<SocialDistance> {
   String apiURL = "https://shahzada.website/covid/public/api/social";
-
+  
   List<String> answerSelected;
+  List<int> sliderStatList;
   List<bool> submitEnabled;
   List<bool> submitPressed;
   List<bool> questionAttempted;
+
+
 
   bool socialDistanceCompleted = false;
   bool sliderSubmitStatus = false;
   int correctAttempted = 0;
   double socialDistanceMarks = 0.0;
   SharedPreferences sharedPreferences;
-
   QuizHelper quizHelper;
+
+
 
   int quizIndex = 0;
   @override
@@ -39,10 +43,12 @@ class _SocialDistanceState extends State<SocialDistance> {
 
     // do something here
     fetchQuiz();
+    
     initializeSharedPreferences();
     super.initState();
 
   }
+
 
 
 
@@ -74,6 +80,8 @@ class _SocialDistanceState extends State<SocialDistance> {
 //      quizHelper.results[0].incorrectAnswers.shuffle();
     });
   }
+
+
 
 // posting data for slider 
   makePostRequest() async{
@@ -370,6 +378,21 @@ class _SocialDistanceState extends State<SocialDistance> {
 
   }
 
+  checkSliderValue(double val){
+      if(val == 0.0){
+
+      }else if(val == 0.25){
+
+      }else if(val == 0.5){
+
+      }else if(val == 0.75){
+
+      }else if(val == 1.0){
+
+      }  
+  }
+
+ 
 
   void initializeSharedPreferences() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -527,13 +550,147 @@ class _CoronaSliderState extends State<CoronaSlider> {
   Color sliderColor = Color(0xFFF58A97);
   bool sliderSubmitStatus = false;
   bool showSliderStats = false;
+  List<int> intList;
+
+   int sliderValueOne = 1;
+   int sliderValueTwo = 2;
+   int sliderValueThree = 3;
+   int sliderValueFour = 4;
+   int sliderValueFive = 5;
+
+   bool endSlider = false;
+
+ @override
+  void initState(){
+    fetchSliderStat(); 
+    super.initState();
+  }
+
   void _setvalue(double value) => setState(() => _value = value);
+
+
+fetchSliderStat() async{
+String sliderURL = "https://shahzada.website/covid/public/api/getSliderStats";
+var response = await http.get(sliderURL);
+ var sliderbody = response.body;
+var json = jsonDecode(sliderbody);
+  
+  var onem = int.parse(json[0]['1m']);
+  var twom = int.parse(json[0]['2m']);
+  var threem = int.parse(json[0]['3m']);
+  var fourm = int.parse(json[0]['4m']);
+  var fivem = int.parse(json[0]['5m']);
+  intList = [onem, twom, threem, fourm, fivem ];
+    
+   var totalList = intList.reduce((i,j) => i+j); 
+    
+   sliderValueOne = ((onem/totalList) * 100).round();
+
+    setState(() {
+ sliderValueOne = ((onem/totalList) * 100).round();
+  sliderValueTwo = ((twom/totalList) * 100).round();
+   sliderValueThree = ((threem/totalList) * 100).round();
+    sliderValueFour = ((fourm/totalList) * 100).round();
+     sliderValueFive = ((fivem/totalList) * 100).round();
+       
+    });
+  
+  
+
+
+    print('the total value is:');
+    print(totalList);
+    
+
+    
+}
+
+
+
+   Widget tickorCrossZero(double val){
+  if(val == 0.0){
+   return    Icon(
+               Icons.check_circle,
+              color:Color(0xFFF4364F),
+              size: 24.0,
+            );
+  }else{
+  return    Icon(
+                Icons.cancel,
+                color:Color(0xFFF4364F),
+                size: 24.0,
+              );
+  }
+ }
+   Widget tickorCrossOne(double val){
+  if(val == 0.25){
+   return    Icon(
+               Icons.check_circle,
+              color:Color(0xFFF4364F),
+              size: 24.0,
+            );
+  }else{
+  return    Icon(
+                Icons.cancel,
+                color:Color(0xFFF4364F),
+                size: 24.0,
+              );
+  }
+ }
+   Widget tickorCrossTwo(double val){
+  if(val == 0.50){
+   return    Icon(
+               Icons.check_circle,
+              color:Color(0xFF6FCF97),
+              size: 24.0,
+            );
+  }else{
+  return    Icon(
+                Icons.cancel,
+                color:Color(0xFF6FCF97),
+                size: 24.0,
+              );
+  }
+ }
+   Widget tickorCrossThree(double val){
+  if(val == 0.75){
+   return    Icon(
+               Icons.check_circle,
+              color:Color(0xFF6FCF97),
+              size: 24.0,
+            );
+  }else{
+  return    Icon(
+                Icons.cancel,
+                color:Color(0xFF6FCF97),
+                size: 24.0,
+              );
+  }
+ }
+   Widget tickorCrossFour(double val){
+  if(val == 1.0){
+   return    Icon(
+               Icons.check_circle,
+              color:Color(0xFF6FCF97),
+              size: 24.0,
+            );
+  }else{
+  return    Icon(
+                Icons.cancel,
+                color:Color(0xFF6FCF97),
+                size: 24.0,
+              );
+  }
+ }
+
 
 
   @override
   Widget build(BuildContext context) {
 
-        return Column(
+  return AbsorbPointer(
+    absorbing: endSlider,
+    child: Column(
           children: <Widget>[
           Container(
           width: 290.0,
@@ -557,10 +714,7 @@ class _CoronaSliderState extends State<CoronaSlider> {
               {
                sliderSubmitStatus = false;
               }else{ 
-             
              sliderSubmitStatus = true;
-            
-        
               }
 
                _value = value;
@@ -569,15 +723,8 @@ class _CoronaSliderState extends State<CoronaSlider> {
                 sliderColor = Color(0xFFF58A97);
               }else{
                sliderColor = Color(0xFF56CCF2);
-             
-              }
+                           }
                print(_value);
-
-              
-              
-              
-              
-            
             });
           }
           
@@ -595,60 +742,42 @@ class _CoronaSliderState extends State<CoronaSlider> {
                     children: <Widget>[
                           Column(
                         children: <Widget>[
-                            Icon(
-                          Icons.cancel,
-                          color:Color(0xFFF4364F),
-                          size: 24.0,
-                        ),
-                        Text('5%', style: TextStyle(
+                      
+                       tickorCrossZero(_value),
+
+                       Text(sliderValueOne.toString()+'%', style: TextStyle(
                           color: Color(0xFFF58A97)
                         ),) 
                         ],
                       ),
                           Column(
                         children: <Widget>[
-                            Icon(
-                          Icons.cancel,
-                          color:Color(0xFFF4364F),
-                          size: 24.0,
-                        ),
-                        Text('64%', style: TextStyle(
+                        tickorCrossOne(_value),
+                        Text(sliderValueTwo.toString()   ,style: TextStyle(
                           color: Color(0xFFF58A97)
                         ),) 
                         ],
                       ),
                           Column(
                         children: <Widget>[
-                            Icon(
-                          Icons.check_circle,
-                          color:Color(0xFF219653),
-                          size: 24.0,
-                        ),
-                        Text('16%', style: TextStyle(
+                       tickorCrossTwo(_value),
+                        Text(sliderValueThree.toString()+ '%' , style: TextStyle(
                           color: Color(0xFF6FCF97)
                         ),) 
                         ],
                       ),
                           Column(
                         children: <Widget>[
-                            Icon(
-                          Icons.cancel,
-                          color:Color(0xFF219653),
-                          size: 24.0,
-                        ),
-                        Text('4%', style: TextStyle(
+                        tickorCrossThree(_value),
+                        Text(sliderValueFour.toString()+'%' , style: TextStyle(
                           color: Color(0xFF6FCF97)
                         ),) 
                         ],
                       ),
                           Column(
                         children: <Widget>[
-                            Icon(
-                          Icons.cancel,
-                          color:Color(0xFF219653),
-                          size: 24.0,
-                        ),
-                        Text('6%', style: TextStyle(
+                         tickorCrossFour(_value),
+                        Text(sliderValueFive.toString() + '%' , style: TextStyle(
                           color: Color(0xFF6FCF97)
                         ),) 
                         ],
@@ -696,6 +825,7 @@ class _CoronaSliderState extends State<CoronaSlider> {
                                 sliderSubmitStatus = false;
                                 isSliderSubmitted = true;
                                 showSliderStats = true;
+                                endSlider = true;
 
                             });
                            
@@ -719,7 +849,9 @@ class _CoronaSliderState extends State<CoronaSlider> {
                     ), 
                        ),
           ]
-    );
+    ),
+  );
+  
   }
 }
 

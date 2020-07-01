@@ -22,7 +22,7 @@ class _HydrationState extends State<Hydration> {
   List<bool> submitEnabled;
   List<bool> submitPressed;
   List<bool> questionAttempted;
-
+  bool displayHydrationNotification = false;
   bool stayHydratedCompleted = false;
   int correctAttempted = 0;
   double stayHydratedMarks = 0.0;
@@ -157,7 +157,52 @@ int quizIndex = 0;
                      surveyCarousel(),
                      SizedBox(height:30),
                      surveyInformation(),
-                     SizedBox(height: 50),
+                     Visibility(
+                       visible: displayHydrationNotification,
+                       child:  Center(
+                       child: Container(
+                         padding: EdgeInsets.fromLTRB(8, 10, 8, 10),
+                         width: 280,
+                         child:RichText(
+                            text: TextSpan(
+                              text: 'Important: ',
+                              style: TextStyle(
+                                fontFamily: 'Seg',
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFFF4364F),
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(text: ' If you are suffering from any of the following problems, please do not drink too much water without consulting your physician:', 
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                ),),
+                                TextSpan(text: "\n - Heart Disease", 
+                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14)),
+                                TextSpan(text: "\n - Kidney Disease", 
+                                style: TextStyle(fontWeight: FontWeight.normal, fontSize:14)),
+                                TextSpan(text: "\n - Liver Disease", 
+                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14)),
+                              ],
+                            ),
+                          ),
+                         decoration: BoxDecoration(
+                           color: Colors.white,
+                           borderRadius: BorderRadius.circular(10),
+                             boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
+                         ),
+                       )
+                     ),
+                   
+                     ),
+                     SizedBox(height: 40),
                      Container(
                        padding: EdgeInsets.symmetric(horizontal: 20),
                        child: ListView.builder(
@@ -197,6 +242,7 @@ int quizIndex = 0;
                                              padding: EdgeInsets.symmetric(vertical: 12),
                                              onPressed: (){
                                                setState(() {
+                                                 
                                                  if(questionAttempted[index]){
                                                    // do nothing; question already attempted
                                                  } else{
@@ -249,6 +295,7 @@ int quizIndex = 0;
 
                                          onPressed: (){
                                            setState(() {
+                                             displayHydrationNotification = true;
                                              if(checkAnswer(answerSelected[index], index)){
                                                correctAttempted++;
                                                print(correctAttempted);

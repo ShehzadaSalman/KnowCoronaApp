@@ -99,7 +99,7 @@ class _ResultPageState extends State<ResultPage> {
                           Expanded(
                             flex: 1,
                             child: Image(
-                                image: AssetImage('Images/new-badge.png')
+                                image: AssetImage('Images/one.png')
                             ),
                           ),
 
@@ -258,7 +258,7 @@ class _ResultPageState extends State<ResultPage> {
                           Expanded(
                             flex: 1,
                             child: Image(
-                                image: AssetImage('Images/new-badge.png')
+                                image: AssetImage('Images/two.png')
                             ),
                           ),
 
@@ -417,7 +417,7 @@ class _ResultPageState extends State<ResultPage> {
                           Expanded(
                             flex: 1,
                             child: Image(
-                                image: AssetImage('Images/new-badge.png')
+                                image: AssetImage('Images/three.png')
                             ),
                           ),
 
