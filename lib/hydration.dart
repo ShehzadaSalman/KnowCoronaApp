@@ -17,7 +17,9 @@ class Hydration extends StatefulWidget {
 class _HydrationState extends State<Hydration> {
 
   // we do all the here before the app is started
-  String apiURL = "https://shahzada.website/covid/public/api/secondapi";
+ String apiURL = "https://shahzada.website/covid/public/api/secondapi";
+  // String apiURL = "http://shahzada.website/covid/public/api/newApi";
+//  List<AnswersWithStats> allAnswersWithStats;
   List<String> answerSelected;
   List<bool> submitEnabled;
   List<bool> submitPressed;
@@ -33,6 +35,7 @@ QuizHelper quizHelper;
 int quizIndex = 0;
   @override
   void initState(){
+//    allAnswersWithStats = List();
     answerSelected = List();
     submitEnabled = List();
     submitPressed = List();
@@ -65,7 +68,17 @@ int quizIndex = 0;
             results.incorrectAnswers.add(
               results.correctAnswer
             );
-            results.incorrectAnswers.shuffle();
+//            results.incorrectAnswers.shuffle();
+            results.incorrectStats.add(
+                results.correctStat
+            );
+            for(int i=0; i<results.incorrectAnswers.length; i++){
+              AnswersWithStats answersWithStats = AnswersWithStats();
+              answersWithStats.answers = results.incorrectAnswers[i];
+              answersWithStats.stats = results.incorrectStats[i];
+              results.allAnswersWithStats.add(answersWithStats);
+        }
+            results.allAnswersWithStats.shuffle();
             answerSelected.add('');
             submitEnabled.add(false);
             submitPressed.add(false);
@@ -122,7 +135,7 @@ int quizIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-         checkAlbum('Salman');
+//         checkAlbum('Salman');
    if(quizHelper != null){
      return Scaffold(
          body:  SingleChildScrollView(
@@ -173,15 +186,15 @@ int quizIndex = 0;
                                 color: Color(0xFFF4364F),
                               ),
                               children: <TextSpan>[
-                                TextSpan(text: ' If you are suffering from any of the following problems, please do not drink too much water without consulting your physician:', 
+                                TextSpan(text: ' If you are suffering from any of the following problems, please do not drink too much water without consulting your physician:',
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                 ),),
-                                TextSpan(text: "\n - Heart Disease", 
+                                TextSpan(text: "\n - Heart Disease",
                                 style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14)),
-                                TextSpan(text: "\n - Kidney Disease", 
+                                TextSpan(text: "\n - Kidney Disease",
                                 style: TextStyle(fontWeight: FontWeight.normal, fontSize:14)),
-                                TextSpan(text: "\n - Liver Disease", 
+                                TextSpan(text: "\n - Liver Disease",
                                 style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14)),
                               ],
                             ),
@@ -200,7 +213,7 @@ int quizIndex = 0;
                          ),
                        )
                      ),
-                   
+
                      ),
                      SizedBox(height: 40),
                      Container(
@@ -222,38 +235,79 @@ int quizIndex = 0;
                                    ),
                                    SizedBox(height:10),
                                    Container(
-                                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                                      child: Column(
-                                       children: quizHelper.results[index].incorrectAnswers.map((f){
-                                         Color color;
+                                       mainAxisAlignment: MainAxisAlignment.start,
+                                       crossAxisAlignment: CrossAxisAlignment.start,
+//                                       children: quizHelper.results[index].incorrectAnswers.map((f){
+                                       children: quizHelper.results[index].allAnswersWithStats.map((f){
+                                    Color color;
+                                    Color percentageColor;
+                                    Icon icon = Icon(
+                                      Icons.do_not_disturb_on,
+                                      color: Color(0xFFF58A97),
+                                      size: 25.0,
+                                    );
                                          if(submitPressed[index]){
-                                           f.compareTo(quizHelper.results[index].correctAnswer) == 0
-                                               ? color = Color(0xFF6FCF97) :
-                                           f.compareTo(answerSelected[index]) == 0
-                                               ? color = Color(0xFFF58A97) : color = null;
+                                           if(f.answers.compareTo(quizHelper.results[index].correctAnswer) == 0){
+                                             color = Color(0xFF6FCF97);
+                                             percentageColor = Color(0xFF6FCF97);
+                                             icon = Icon(
+                                               Icons.check_circle,
+                                               color: Color(0xFF6FCF97),
+                                               size: 25.0,
+                                             );
+                                           } else if(f.answers.compareTo(answerSelected[index]) == 0){
+                                             color = Color(0xFFF58A97);
+                                             percentageColor = Color(0xFFF58A97);
+                                           } else{
+                                             color = null;
+                                             percentageColor = Color(0xFFF58A97);
+                                           }
+//                                           f.answers.compareTo(quizHelper.results[index].correctAnswer) == 0
+//                                               ? color = Color(0xFF6FCF97) :
+//                                           f.answers.compareTo(answerSelected[index]) == 0
+//                                               ? color = Color(0xFFF58A97) : color = null;
                                          } else{
-                                           f.compareTo(answerSelected[index]) == 0
+                                           f.answers.compareTo(answerSelected[index]) == 0
                                                ? color = Color(0xFF56CCF2) : color = null;
                                          }
-                                         return SizedBox(
-                                           width: double.infinity,
-                                           child: RaisedButton(
+                                         return Row(
+                                           children: <Widget>[
+                                       SizedBox(
+                                         width: 250,
+                                         child: RaisedButton(
                                              color: color,
-                                             padding: EdgeInsets.symmetric(vertical: 12),
+                                             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
                                              onPressed: (){
                                                setState(() {
-                                                 
+
                                                  if(questionAttempted[index]){
                                                    // do nothing; question already attempted
                                                  } else{
-                                                   answerSelected[index] = f;
+                                                   answerSelected[index] = f.answers;
                                                    submitEnabled[index] = true;
                                                  }
                                                });
                                              },
                                              elevation: 0,
-                                             child: Text(f),
-                                           ),
+                                             child: Text(f.answers, style: TextStyle(
+                                               fontSize: 13,
+                                             ),),
+
+                                         ),
+                                       ),
+                                       SizedBox(width: 5),
+                                       submitPressed[index]
+                                           ? icon
+                                           : Container(height: 0, width: 0,),
+                                       SizedBox(width: 5),
+                                        submitPressed[index]
+                                            ? Text(f.stats + '%', style: TextStyle(
+                                          color: percentageColor,
+                                        ),)
+                                            : Container(height: 0, width: 0,),
+                                           ]
                                          );
                                        }).toList(),
                                      ),
@@ -294,6 +348,14 @@ int quizIndex = 0;
                                          ),),
 
                                          onPressed: (){
+                                           //id for post request
+                                           quizHelper.results[index].id;
+                                           //text of selected option
+                                           answerSelected[index];
+                                           // this check can be used for post request
+                                           if(checkAnswer(answerSelected[index], index)){
+                                           }
+
                                            setState(() {
                                              displayHydrationNotification = true;
                                              if(checkAnswer(answerSelected[index], index)){
@@ -495,6 +557,7 @@ int quizIndex = 0;
     Navigator.pushNamed(context, '/result');
   }
 }
+
 
 List<String> theItems = ['one','two', 'three', 'four'];
 

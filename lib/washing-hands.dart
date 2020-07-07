@@ -18,7 +18,8 @@ class WashingHands extends StatefulWidget {
 
 class _WashingHandsState extends State<WashingHands> {
 
-  String apiURL = "https://shahzada.website/covid/public/api/washing";
+ String apiURL = "https://shahzada.website/covid/public/api/washing";
+  // String apiURL = "http://shahzada.website/covid/public/api/newApi";
   List<String> answerSelected;
   List<bool> submitEnabled;
   List<bool> submitPressed;
@@ -63,14 +64,24 @@ class _WashingHandsState extends State<WashingHands> {
         results.incorrectAnswers.add(
             results.correctAnswer
         );
-        results.incorrectAnswers.shuffle();
+//            results.incorrectAnswers.shuffle();
+        results.incorrectStats.add(
+            results.correctStat
+        );
+        for(int i=0; i<results.incorrectAnswers.length; i++){
+          AnswersWithStats answersWithStats = AnswersWithStats();
+          answersWithStats.answers = results.incorrectAnswers[i];
+          answersWithStats.stats = results.incorrectStats[i];
+          results.allAnswersWithStats.add(answersWithStats);
+        }
+        results.allAnswersWithStats.shuffle();
         answerSelected.add('');
         submitEnabled.add(false);
         submitPressed.add(false);
         questionAttempted.add(false);
       });
-//      quizHelper.results[0].incorrectAnswers.add(
-//          quizHelper.results[0].correctAnswer
+//          quizHelper.results[0].incorrectAnswers.add(
+//              quizHelper.results[0].correctAnswer
 //      );
 //      quizHelper.results[0].incorrectAnswers.shuffle();
     });
@@ -151,37 +162,79 @@ class _WashingHandsState extends State<WashingHands> {
                                       ),
                                       SizedBox(height:10),
                                       Container(
-                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                                         child: Column(
-                                          children: quizHelper.results[index].incorrectAnswers.map((f){
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+//                                       children: quizHelper.results[index].incorrectAnswers.map((f){
+                                          children: quizHelper.results[index].allAnswersWithStats.map((f){
                                             Color color;
+                                            Color percentageColor;
+                                            Icon icon = Icon(
+                                              Icons.do_not_disturb_on,
+                                              color: Color(0xFFF58A97),
+                                              size: 25.0,
+                                            );
                                             if(submitPressed[index]){
-                                              f.compareTo(quizHelper.results[index].correctAnswer) == 0
-                                                  ? color = Color(0xFF6FCF97) :
-                                              f.compareTo(answerSelected[index]) == 0
-                                                  ? color = Color(0xFFF58A97) : color = null;
+                                              if(f.answers.compareTo(quizHelper.results[index].correctAnswer) == 0){
+                                                color = Color(0xFF6FCF97);
+                                                percentageColor = Color(0xFF6FCF97);
+                                                icon = Icon(
+                                                  Icons.check_circle,
+                                                  color: Color(0xFF6FCF97),
+                                                  size: 25.0,
+                                                );
+                                              } else if(f.answers.compareTo(answerSelected[index]) == 0){
+                                                color = Color(0xFFF58A97);
+                                                percentageColor = Color(0xFFF58A97);
+                                              } else{
+                                                color = null;
+                                                percentageColor = Color(0xFFF58A97);
+                                              }
+//                                           f.answers.compareTo(quizHelper.results[index].correctAnswer) == 0
+//                                               ? color = Color(0xFF6FCF97) :
+//                                           f.answers.compareTo(answerSelected[index]) == 0
+//                                               ? color = Color(0xFFF58A97) : color = null;
                                             } else{
-                                              f.compareTo(answerSelected[index]) == 0
+                                              f.answers.compareTo(answerSelected[index]) == 0
                                                   ? color = Color(0xFF56CCF2) : color = null;
                                             }
-                                            return SizedBox(
-                                              width: double.infinity,
-                                              child: RaisedButton(
-                                                color: color,
-                                                padding: EdgeInsets.symmetric(vertical: 12),
-                                                onPressed: (){
-                                                  setState(() {
-                                                    if(questionAttempted[index]){
-                                                      // do nothing; question already attempted
-                                                    } else{
-                                                      answerSelected[index] = f;
-                                                      submitEnabled[index] = true;
-                                                    }
-                                                  });
-                                                },
-                                                elevation: 0,
-                                                child: Text(f),
-                                              ),
+                                            return Row(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    width: 250,
+                                                    child: RaisedButton(
+                                                      color: color,
+                                                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                                                      onPressed: (){
+                                                        setState(() {
+
+                                                          if(questionAttempted[index]){
+                                                            // do nothing; question already attempted
+                                                          } else{
+                                                            answerSelected[index] = f.answers;
+                                                            submitEnabled[index] = true;
+                                                          }
+                                                        });
+                                                      },
+                                                      elevation: 0,
+                                                      child: Text(f.answers, style: TextStyle(
+                                                        fontSize: 13,
+                                                      ),),
+
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 5),
+                                                  submitPressed[index]
+                                                      ? icon
+                                                      : Container(height: 0, width: 0,),
+                                                  SizedBox(width: 5),
+                                                  submitPressed[index]
+                                                      ? Text(f.stats + '%', style: TextStyle(
+                                                    color: percentageColor,
+                                                  ),)
+                                                      : Container(height: 0, width: 0,),
+                                                ]
                                             );
                                           }).toList(),
                                         ),
@@ -204,6 +257,14 @@ class _WashingHandsState extends State<WashingHands> {
                                             ),),
 
                                             onPressed: (){
+                                              //id for post request
+                                              quizHelper.results[index].id;
+                                              //text of selected option
+                                              answerSelected[index];
+                                              // this check can be used for post request
+                                              if(checkAnswer(answerSelected[index], index)){
+                                              }
+
                                               setState(() {
                                                 if(checkAnswer(answerSelected[index], index)){
                                                   correctAttempted++;

@@ -14,7 +14,8 @@ class SocialDistance extends StatefulWidget {
 }
 
 class _SocialDistanceState extends State<SocialDistance> {
-  String apiURL = "https://shahzada.website/covid/public/api/social";
+ String apiURL = "https://shahzada.website/covid/public/api/social";
+  // String apiURL = "http://shahzada.website/covid/public/api/newApi";
   
   List<String> answerSelected;
   List<int> sliderStatList;
@@ -43,7 +44,6 @@ class _SocialDistanceState extends State<SocialDistance> {
 
     // do something here
     fetchQuiz();
-    
     initializeSharedPreferences();
     super.initState();
 
@@ -68,14 +68,24 @@ class _SocialDistanceState extends State<SocialDistance> {
         results.incorrectAnswers.add(
             results.correctAnswer
         );
-        results.incorrectAnswers.shuffle();
+//            results.incorrectAnswers.shuffle();
+        results.incorrectStats.add(
+            results.correctStat
+        );
+        for(int i=0; i<results.incorrectAnswers.length; i++){
+          AnswersWithStats answersWithStats = AnswersWithStats();
+          answersWithStats.answers = results.incorrectAnswers[i];
+          answersWithStats.stats = results.incorrectStats[i];
+          results.allAnswersWithStats.add(answersWithStats);
+        }
+        results.allAnswersWithStats.shuffle();
         answerSelected.add('');
         submitEnabled.add(false);
         submitPressed.add(false);
         questionAttempted.add(false);
       });
-//      quizHelper.results[0].incorrectAnswers.add(
-//          quizHelper.results[0].correctAnswer
+//          quizHelper.results[0].incorrectAnswers.add(
+//              quizHelper.results[0].correctAnswer
 //      );
 //      quizHelper.results[0].incorrectAnswers.shuffle();
     });
@@ -84,19 +94,16 @@ class _SocialDistanceState extends State<SocialDistance> {
 
 
 // posting data for slider 
-  makePostRequest() async{
-    String postURL = "https://jsonplaceholder.typicode.com/albums";
-    Map<String, String> headers = {"Content-type": "application/json"};
-    String json = '{"title": "Hello"}';
+  // makePostRequest() async{
+  //   String postURL = "http://shahzada.website/covid/public/api/storingflutter";
+  //   Map<String, String> headers = {"Content-type": "application/json"};
+  //   String json = '{"title": "Hello"}';
 
-    http.Response response = await http.post(postURL,headers: headers, body: json);
+  //   http.Response response = await http.post(postURL,headers: headers, body: json);
 
-    if(response.statusCode == 201){
-      print(response.body);
-    }else{
-      throw Exception('Failed to post data to the laravel application');
-    }
-  }
+  //  print(response.body);
+ 
+  //}
 
 
 
@@ -199,37 +206,79 @@ class _SocialDistanceState extends State<SocialDistance> {
                                       ),
                                       SizedBox(height:10),
                                       Container(
-                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                                         child: Column(
-                                          children: quizHelper.results[index].incorrectAnswers.map((f){
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+//                                       children: quizHelper.results[index].incorrectAnswers.map((f){
+                                          children: quizHelper.results[index].allAnswersWithStats.map((f){
                                             Color color;
+                                            Color percentageColor;
+                                            Icon icon = Icon(
+                                              Icons.do_not_disturb_on,
+                                              color: Color(0xFFF58A97),
+                                              size: 25.0,
+                                            );
                                             if(submitPressed[index]){
-                                              f.compareTo(quizHelper.results[index].correctAnswer) == 0
-                                                  ? color = Color(0xFF6FCF97) :
-                                              f.compareTo(answerSelected[index]) == 0
-                                                  ? color = Color(0xFFF58A97) : color = null;
+                                              if(f.answers.compareTo(quizHelper.results[index].correctAnswer) == 0){
+                                                color = Color(0xFF6FCF97);
+                                                percentageColor = Color(0xFF6FCF97);
+                                                icon = Icon(
+                                                  Icons.check_circle,
+                                                  color: Color(0xFF6FCF97),
+                                                  size: 25.0,
+                                                );
+                                              } else if(f.answers.compareTo(answerSelected[index]) == 0){
+                                                color = Color(0xFFF58A97);
+                                                percentageColor = Color(0xFFF58A97);
+                                              } else{
+                                                color = null;
+                                                percentageColor = Color(0xFFF58A97);
+                                              }
+//                                           f.answers.compareTo(quizHelper.results[index].correctAnswer) == 0
+//                                               ? color = Color(0xFF6FCF97) :
+//                                           f.answers.compareTo(answerSelected[index]) == 0
+//                                               ? color = Color(0xFFF58A97) : color = null;
                                             } else{
-                                              f.compareTo(answerSelected[index]) == 0
+                                              f.answers.compareTo(answerSelected[index]) == 0
                                                   ? color = Color(0xFF56CCF2) : color = null;
                                             }
-                                            return SizedBox(
-                                              width: double.infinity,
-                                              child: RaisedButton(
-                                                color: color,
-                                                padding: EdgeInsets.symmetric(vertical: 12),
-                                                onPressed: (){
-                                                  setState(() {
-                                                    if(questionAttempted[index]){
-                                                      // do nothing; question already attempted
-                                                    } else{
-                                                      answerSelected[index] = f;
-                                                      submitEnabled[index] = true;
-                                                    }
-                                                  });
-                                                },
-                                                elevation: 0,
-                                                child: Text(f),
-                                              ),
+                                            return Row(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    width: 250,
+                                                    child: RaisedButton(
+                                                      color: color,
+                                                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                                                      onPressed: (){
+                                                        setState(() {
+
+                                                          if(questionAttempted[index]){
+                                                            // do nothing; question already attempted
+                                                          } else{
+                                                            answerSelected[index] = f.answers;
+                                                            submitEnabled[index] = true;
+                                                          }
+                                                        });
+                                                      },
+                                                      elevation: 0,
+                                                      child: Text(f.answers, style: TextStyle(
+                                                        fontSize: 13,
+                                                      ),),
+
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 5),
+                                                  submitPressed[index]
+                                                      ? icon
+                                                      : Container(height: 0, width: 0,),
+                                                  SizedBox(width: 5),
+                                                  submitPressed[index]
+                                                      ? Text(f.stats + '%', style: TextStyle(
+                                                    color: percentageColor,
+                                                  ),)
+                                                      : Container(height: 0, width: 0,),
+                                                ]
                                             );
                                           }).toList(),
                                         ),
@@ -252,6 +301,14 @@ class _SocialDistanceState extends State<SocialDistance> {
                                             ),),
 
                                             onPressed: (){
+                                              //id for post request
+                                              quizHelper.results[index].id;
+                                              //text of selected option
+                                              answerSelected[index];
+                                              // this check can be used for post request
+                                              if(checkAnswer(answerSelected[index], index)){
+                                              }
+
                                               setState(() {
                                                 if(checkAnswer(answerSelected[index], index)){
                                                   correctAttempted++;
@@ -538,6 +595,7 @@ int _current = 0;
   );
 }
 
+
 class CoronaSlider extends StatefulWidget {
   @override
   _CoronaSliderState createState() => _CoronaSliderState();
@@ -560,6 +618,13 @@ class _CoronaSliderState extends State<CoronaSlider> {
 
    bool endSlider = false;
 
+  var onem;
+  var twom;
+  var threem;
+  var fourm;
+  var fivem;
+
+
  @override
   void initState(){
     fetchSliderStat(); 
@@ -575,36 +640,62 @@ var response = await http.get(sliderURL);
  var sliderbody = response.body;
 var json = jsonDecode(sliderbody);
   
-  var onem = int.parse(json[0]['1m']);
-  var twom = int.parse(json[0]['2m']);
-  var threem = int.parse(json[0]['3m']);
-  var fourm = int.parse(json[0]['4m']);
-  var fivem = int.parse(json[0]['5m']);
+ 
+
+    setState(() {
+  onem = int.parse(json[0]['1m']);
+  twom = int.parse(json[0]['2m']);
+  threem = int.parse(json[0]['3m']);
+  fourm = int.parse(json[0]['4m']);
+  fivem = int.parse(json[0]['5m']);
   intList = [onem, twom, threem, fourm, fivem ];
     
    var totalList = intList.reduce((i,j) => i+j); 
     
    sliderValueOne = ((onem/totalList) * 100).round();
-
-    setState(() {
  sliderValueOne = ((onem/totalList) * 100).round();
-  sliderValueTwo = ((twom/totalList) * 100).round();
-   sliderValueThree = ((threem/totalList) * 100).round();
-    sliderValueFour = ((fourm/totalList) * 100).round();
-     sliderValueFive = ((fivem/totalList) * 100).round();
+ sliderValueTwo = ((twom/totalList) * 100).round();
+ sliderValueThree = ((threem/totalList) * 100).round();
+ sliderValueFour = ((fourm/totalList) * 100).round();
+ sliderValueFive = ((fivem/totalList) * 100).round();
        
     });
   
-  
+ }
 
 
-    print('the total value is:');
-    print(totalList);
-    
+checkSlider(double val){
 
-    
+if(val == 0.0) 
+{ storingValue(onem, '1m'); }
+else if(val == 0.25)
+{ storingValue(twom, '2m'); }
+else if(val == 0.50){
+ storingValue(threem, '3m');}
+else if(val == 0.75){
+  storingValue(fourm, '4m');}
+else if(val == 1.0){
+ storingValue(fivem, '5m');}
+
 }
 
+
+storingValue(int clicked, String column) async{
+      String newClicked = clicked.toString();
+      
+    String postURL = "http://shahzada.website/covid/public/api/storingflutter";
+    Map<String, String> headers = {"Content-type": "application/json"};
+    String json = '{"title":  "$newClicked", "column": "$column"}';
+    try{
+    http.Response response = await http.post(postURL,headers: headers, body: json);    
+    print(response.body);
+
+    }catch(err){
+     print('Error sending data to the api for slider'); 
+    }
+    
+
+}
 
 
    Widget tickorCrossZero(double val){
@@ -716,15 +807,14 @@ var json = jsonDecode(sliderbody);
               }else{ 
              sliderSubmitStatus = true;
               }
-
                _value = value;
               
               if(value < 0.4){
                 sliderColor = Color(0xFFF58A97);
               }else{
                sliderColor = Color(0xFF56CCF2);
-                           }
-               print(_value);
+                   }
+            
             });
           }
           
@@ -747,13 +837,14 @@ var json = jsonDecode(sliderbody);
 
                        Text(sliderValueOne.toString()+'%', style: TextStyle(
                           color: Color(0xFFF58A97)
-                        ),) 
+                        ),
+                        ) 
                         ],
                       ),
                           Column(
                         children: <Widget>[
                         tickorCrossOne(_value),
-                        Text(sliderValueTwo.toString()   ,style: TextStyle(
+                        Text(sliderValueTwo.toString()+'%',style: TextStyle(
                           color: Color(0xFFF58A97)
                         ),) 
                         ],
@@ -761,7 +852,7 @@ var json = jsonDecode(sliderbody);
                           Column(
                         children: <Widget>[
                        tickorCrossTwo(_value),
-                        Text(sliderValueThree.toString()+ '%' , style: TextStyle(
+                        Text(sliderValueThree.toString()+'%' , style: TextStyle(
                           color: Color(0xFF6FCF97)
                         ),) 
                         ],
@@ -821,14 +912,21 @@ var json = jsonDecode(sliderbody);
                           ),),
 
                           onPressed: (){
+
                             setState(() {
                                 sliderSubmitStatus = false;
                                 isSliderSubmitted = true;
                                 showSliderStats = true;
                                 endSlider = true;
-
                             });
                            
+                          // posting data to the db, get the value of the slider
+                          //selected and the global variable and send it to the
+                          // to check which meter it selected and then increment that
+                          // variable and post it back
+                          
+                          checkSlider(_value);
+
                           }
                     ) :  RaisedButton(
                           color: Color(0xFFBDBDBD),

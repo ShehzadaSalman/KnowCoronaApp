@@ -1,5 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class ResultPage extends StatefulWidget {
@@ -11,17 +16,47 @@ class _ResultPageState extends State<ResultPage> {
   SharedPreferences sharedPreferences;
   double totalMarks = 0.0;
 
+ void fbTrooper() async{
+  const url = 'https://www.facebook.com/profilepicframes/?selected_overlay_id=685715425609850';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+ }
+ 
+ void fbLeuitenant() async{
+  const url = 'https://www.facebook.com/profilepicframes/?selected_overlay_id=1108876776166062';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+ }
+ 
+ void fbGeneral() async{
+  const url = 'https://www.facebook.com/profilepicframes/?selected_overlay_id=580650669260525';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+ }
+ 
   @override
   void initState() {
     initializeSharedPreferences();
     super.initState();
   }
 
+  final globalKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
 
-    if(totalMarks <= 5){
+    if(totalMarks < 6){
       return Scaffold(
+        key: globalKey,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -129,8 +164,16 @@ class _ResultPageState extends State<ResultPage> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Image(
-                                image: AssetImage('Images/green-badge.png')
+                            child: InkWell(
+                              onTap: (){   
+                                 final snackBar = SnackBar(content: Text('The badge has been saved'));
+                                 globalKey.currentState.showSnackBar(snackBar);       
+                                downloadImageToLocalStorage('Images/one.png');
+                                
+                              },
+                              child: Image(
+                                  image: AssetImage('Images/green-badge.png')
+                              ),
                             ),
                           ),
 
@@ -160,8 +203,13 @@ class _ResultPageState extends State<ResultPage> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Image(
+                            child: InkWell(
+                              onTap: (){
+                             fbTrooper();
+                              },
+                              child: Image(
                                 image: AssetImage('Images/facebook-badge.png')
+                            ),
                             ),
                           ),
 
@@ -179,7 +227,7 @@ class _ResultPageState extends State<ResultPage> {
         ),
       );
 
-    }else if (totalMarks >= 6  && totalMarks <= 9){
+    }else if (totalMarks < 10){
       return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -288,9 +336,16 @@ class _ResultPageState extends State<ResultPage> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Image(
+                            child: InkWell(
+                              onTap: (){
+                                downloadImageToLocalStorage('Images/two.png');
+                        
+
+                              },
+                              child: Image(
                                 image: AssetImage('Images/green-badge.png')
                             ),
+                            )
                           ),
 
                         ],
@@ -319,8 +374,13 @@ class _ResultPageState extends State<ResultPage> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Image(
+                            child: InkWell(
+                              onTap: (){
+                                fbLeuitenant();
+                              },
+                              child: Image(
                                 image: AssetImage('Images/facebook-badge.png')
+                            ),
                             ),
                           ),
 
@@ -338,7 +398,7 @@ class _ResultPageState extends State<ResultPage> {
         ),
       );
     }
-    else{
+    else if(totalMarks == 10){
       return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -437,7 +497,7 @@ class _ResultPageState extends State<ResultPage> {
                                     style: TextStyle( color: Color(0xFF333333), fontFamily: 'Seg', fontSize: 17 ),
                                     children: [
                                       TextSpan(text: '', style: TextStyle(
-                                        color: Color(0xFF2F80ED), fontWeight: FontWeight.bold,
+                                        color: Color(0xFF9B51E0), fontWeight: FontWeight.bold,
                                       )),
                                       TextSpan(text: 'Download this badge to your phone')
                                     ]
@@ -447,9 +507,14 @@ class _ResultPageState extends State<ResultPage> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Image(
+                            child: InkWell(
+                              onTap: (){
+                                downloadImageToLocalStorage('Images/three.png');
+                              },
+                              child: Image(
                                 image: AssetImage('Images/green-badge.png')
                             ),
+                            )
                           ),
 
                         ],
@@ -478,9 +543,14 @@ class _ResultPageState extends State<ResultPage> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Image(
+                            child: InkWell(
+                              onTap: (){
+                                fbGeneral();
+                              },
+                              child: Image(
                                 image: AssetImage('Images/facebook-badge.png')
                             ),
+                            )
                           ),
 
                         ],
@@ -510,5 +580,47 @@ class _ResultPageState extends State<ResultPage> {
     setState(() {
 
     });
+  }
+
+  void downloadImageToLocalStorage(String path) async {
+    File file = await getImageFileFromAssets(path);
+//    print('path of image file to be downloaded to local' + file.path);
+    GallerySaver.saveImage(file.path).then((path) {
+      print('image saved to gallery');
+    });
+//    var newDirectoryPath = await getExternalStorageDirectory();
+//    new Directory('$newDirectoryPath/knowCorona').create(recursive: true)
+//        .then((value) {
+//      print(value.path);
+//    });
+  }
+
+  Future<File> getImageFileFromAssets(String path) async {
+//    print('path given : ' + path);
+    final byteData = await rootBundle.load(path);
+//    print('size of image file in bytes : ' + byteData.lengthInBytes.toString());
+
+//    await getTemporaryDirectory().then((value) {
+//      print('what is this? : ' + value.path + '/$path');
+//    });
+
+//    final file = File('${(await getTemporaryDirectory()).path}/$path');
+    final directory = await getApplicationDocumentsDirectory();
+
+//    var newDirectoryPath = await getExternalStorageDirectory();
+//    print('new directory path : ' + newDirectoryPath.toString());
+
+    final file = File('${directory.path}/myimage1.png');
+    print('new file path : ' + file.path);
+    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+//
+
+ 
+
+    return file;
+    
+
+
+
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:knowcorona/sneeze.dart';
 import 'package:knowcorona/social-dist.dart';
 import 'package:knowcorona/survivor.dart';
@@ -34,6 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
+//        '/' : (context) => LoadingPage(),
         '/' : (context) => LoadingPage(),
         '/home' : (context) => MyHomePage(),
         '/start' : (context) => StartPage(),
@@ -77,13 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
           
           child: Center(
           child: Column(
-            
-            // This is the main column in the page
-            
+             
              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // This is the first child column
-                Column(
+               Expanded(
+                child:       Column(
                   children: [
                     Image(
                       image: AssetImage('Images/virus.png'),
@@ -95,20 +94,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: TextStyle(
                         color: Colors.grey[700],
                         fontFamily: 'Seg',
-                        fontSize: 22.0,
+                        fontSize: 19.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ), 
                   ]
                  ),
           
-                 Column(children: <Widget>[
+               ),
+                Expanded(
+                  flex: 3,
+                  child:Column(children: <Widget>[
                       Stack(
                       alignment: Alignment.topCenter,
                       overflow: Overflow.visible,
-                      children: <Widget>[
-                        
+                      children: <Widget>[      
                         GestureDetector(
+                  
                           onTap: (){
                             Navigator.push(
                                   context,
@@ -140,9 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       ],
                     ),
-                   SizedBox(height: 20),
-                 ],),
-
+            
+                 ],
+                 ),
+                ),
                // This is the second child stack
                  
                    

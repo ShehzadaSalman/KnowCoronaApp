@@ -1,17 +1,77 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:knowcorona/social-dist.dart';
-import 'sizes_helper.dart';
+import 'package:http/http.dart' as http;
+
 class StartPage extends StatefulWidget {
   @override
   _StartPageState createState() => _StartPageState();
 }
 
+
+
+
+
+
 class _StartPageState extends State<StartPage> {
+
+
+// initializing the states as the page gets loaded
+  @override
+  void initState(){
+  fetchCoronaStat();
+    super.initState();
+}
+
+bool isSatLoading = true;
+
+int infectedNumber;
+int testedNumber;
+int recoveredNumber;
+int deceasedNumber;
+
+double percentageDeaths;
+double percentageRecovered;
+
+
+fetchCoronaStat() async{
+String coronaURL = "https://api.apify.com/v2/key-value-stores/QhfG8Kj6tVYMgud6R/records/LATEST?disableRedirect=true";
+var response = await http.get(coronaURL);
+var body = response.body;
+ 
+var result = json.decode(body);
+
+
+setState(() {
+
+infectedNumber = result['infected'];
+testedNumber = result['tested'];
+deceasedNumber = result['deceased'];
+recoveredNumber = result['recovered'];
+
+// percentages of deaths
+percentageDeaths =   (deceasedNumber/infectedNumber) * 100;
+// percentages of recovered
+percentageRecovered = (recoveredNumber/infectedNumber) * 100;
+
+
+if(percentageRecovered != null){
+isSatLoading = false;
+}else{
+  // do nothing
+}
+
+});
+
+
+}
+
+
+
+
   @override
   Widget build(BuildContext context) {
 
-    double phonewidth = MediaQuery.of(context).size.width;
-
+ 
     return Scaffold(
       body: Container(
         constraints: BoxConstraints.expand(),
@@ -55,7 +115,8 @@ class _StartPageState extends State<StartPage> {
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      'Purify \n Our Motherland \n from COVID-19',
+                    
+                       'Purify \n Our Motherland \n from COVID-19',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey[700],
@@ -145,11 +206,13 @@ class _StartPageState extends State<StartPage> {
                   child: Container(
                     margin: EdgeInsets.fromLTRB(40, 5, 40, 0),
                     padding: EdgeInsets.fromLTRB(10, 20, 5, 20),
-                    child: Row(
+                    child: isSatLoading ? Center(
+                      child: CircularProgressIndicator()
+                    )
+                    : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        // *? This is the data api
-
+                        
                         Column(
                        mainAxisAlignment: MainAxisAlignment.start, 
                        crossAxisAlignment: CrossAxisAlignment.start,  
@@ -158,19 +221,19 @@ class _StartPageState extends State<StartPage> {
                           text: TextSpan(
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: displayWidth(context) * 0.05,
+                              fontSize: 16,
                             ),
                             children: <TextSpan>[
                              TextSpan(text: 'Active: ',
                              style: TextStyle(
                                color: Colors.black,
                              )),
-                             TextSpan(text: '3,902 ',
+                             TextSpan(text:infectedNumber.toString(),
                              style: TextStyle(
                              color: Color(0xFFF2994A),
                              fontWeight: FontWeight.bold
                              )),
-                             TextSpan(text: '/4695',
+                             TextSpan(text: '/'+testedNumber.toString(),
                              style: TextStyle(
                                fontSize: 10
                              )
@@ -185,7 +248,7 @@ class _StartPageState extends State<StartPage> {
                           text: TextSpan(
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: displayWidth(context) * 0.05
+                              fontSize: 16
                             ),
                             children: <TextSpan>[
                              TextSpan(text: 'Deaths: ',
@@ -193,12 +256,12 @@ class _StartPageState extends State<StartPage> {
                                color: Colors.black,
                              ),
                              ),
-                             TextSpan(text: '66 ',
+                             TextSpan(text: deceasedNumber.toString(),
                              style: TextStyle(
                              color: Color(0xFFFEB5757),
                              fontWeight: FontWeight.bold
                              )),
-                             TextSpan(text: '(6.05%)',
+                             TextSpan(text: '/('+ percentageDeaths.toStringAsFixed(2)+'%)',
                              style: TextStyle(
                                fontSize: 10
                              )
@@ -213,20 +276,20 @@ class _StartPageState extends State<StartPage> {
                           text: TextSpan(
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: displayWidth(context) * 0.05
+                              fontSize: 16,
                             ),
                             children: <TextSpan>[
-                             TextSpan(text: 'Recoveries: ',
+                             TextSpan(text: 'Recovered: ',
                              style: TextStyle(
                                color: Colors.black,
                              ),
                              ),
-                             TextSpan(text: '727 ',
+                             TextSpan(text: recoveredNumber.toString(),
                              style: TextStyle(
                              color: Color(0xFFFEB5757),
                              fontWeight: FontWeight.bold
                              )),
-                             TextSpan(text: '(22.16%)',
+                             TextSpan(text: '/('+percentageRecovered.toStringAsFixed(2)+'%)',
                              style: TextStyle(
                                fontSize: 10
                              )        
