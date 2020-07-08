@@ -47,6 +47,24 @@ class _TissueHandlingState extends State<TissueHandling> {
 
 
 
+storestat(int clicked, String postID, String optionTitle, bool isRight) async{
+    
+     
+      
+    String postURL = "http://shahzada.website/covid/public/api/storestat";
+    Map<String, String> headers = {"Content-type": "application/json"};
+    String json =
+     '{"post" : "$postID" , "stat":  "$clicked", "title": "$optionTitle", "isRight" : "$isRight"}';
+    try{
+    http.Response response = await http.post(postURL,headers: headers, body: json);    
+    print(response.body);
+
+    }catch(err){
+     print('Error sending data to the api for option stats'); 
+    }
+    
+
+}
 
   fetchQuiz() async{
     // get the response from the api
@@ -72,6 +90,7 @@ class _TissueHandlingState extends State<TissueHandling> {
           answersWithStats.answers = results.incorrectAnswers[i];
           answersWithStats.stats = results.incorrectStats[i];
           results.allAnswersWithStats.add(answersWithStats);
+          results.totalStatsCount = results.totalStatsCount + int.parse(results.incorrectStats[i]);
         }
         results.allAnswersWithStats.shuffle();
         answerSelected.add('');
@@ -234,7 +253,7 @@ class _TissueHandlingState extends State<TissueHandling> {
                                                       : Container(height: 0, width: 0,),
                                                   SizedBox(width: 5),
                                                   submitPressed[index]
-                                                      ? Text(f.stats + '%', style: TextStyle(
+                                                      ? Text(((int.parse(f.stats)/quizHelper.results[index].totalStatsCount)*100).round().toString() + '%', style: TextStyle(
                                                     color: percentageColor,
                                                   ),)
                                                       : Container(height: 0, width: 0,),
@@ -267,6 +286,9 @@ class _TissueHandlingState extends State<TissueHandling> {
                                               answerSelected[index];
                                               // this check can be used for post request
                                               if(checkAnswer(answerSelected[index], index)){
+                                                storestat(20,  quizHelper.results[index].id, answerSelected[index], true);
+                                              }else{
+                                                storestat(20, quizHelper.results[index].id, answerSelected[index], false);
                                               }
 
                                               setState(() {

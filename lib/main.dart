@@ -110,7 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       overflow: Overflow.visible,
                       children: <Widget>[      
                         GestureDetector(
-                  
                           onTap: (){
                             Navigator.push(
                                   context,
@@ -118,6 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     builder: (context) => StartPage()),
                                 );
                           },
+                         
                           child: Image(
                           image: AssetImage('Images/flagtwo.png'),
                         ),
@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           image: AssetImage('Images/language.png'),
                         ),
                         Positioned(
-                          bottom: -20,
+                          bottom: 8,
                           child: GestureDetector(
                             onTap: (){
                               Navigator.push(
@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       ],
                     ),
-            
+                  SizedBox(height: 0),
                  ],
                  ),
                 ),
