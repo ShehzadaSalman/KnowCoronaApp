@@ -23,12 +23,10 @@ class _StartPageState extends State<StartPage> {
 }
 
 bool isSatLoading = true;
-
 int infectedNumber;
 int testedNumber;
 int recoveredNumber;
 int deceasedNumber;
-
 double percentageDeaths;
 double percentageRecovered;
 

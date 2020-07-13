@@ -338,6 +338,8 @@ class _ResultPageState extends State<ResultPage> {
                             flex: 1,
                             child: InkWell(
                               onTap: (){
+                                       final snackBar = SnackBar(content: Text('The badge has been saved'));
+                                 globalKey.currentState.showSnackBar(snackBar);  
                                 downloadImageToLocalStorage('Images/two.png');
                         
 
@@ -509,6 +511,8 @@ class _ResultPageState extends State<ResultPage> {
                             flex: 1,
                             child: InkWell(
                               onTap: (){
+                                       final snackBar = SnackBar(content: Text('The badge has been saved'));
+                                 globalKey.currentState.showSnackBar(snackBar);  
                                 downloadImageToLocalStorage('Images/three.png');
                               },
                               child: Image(

@@ -19,7 +19,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  device_preview: ^0.4.5
   carousel_slider: ^2.0.0
   shared_preferences: ^0.5.7+3
   path_provider: ^1.6.11

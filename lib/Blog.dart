@@ -43,8 +43,8 @@ class _BlogPageState extends State<BlogPage> {
           ),
           Expanded(
             child: WebView(
-              initialUrl: 'http://shahzada.website/SocialFeedCorona/',
-              javascriptMode: JavascriptMode.unrestricted,
+              initialUrl: 'https://shahzada.website/SocialFeedCorona/',
+              javascriptMode: JavascriptMode.unrestricted,  
               onWebViewCreated: (WebViewController webViewController) {
                 _controller = webViewController;
               },

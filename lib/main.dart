@@ -110,13 +110,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       overflow: Overflow.visible,
                       children: <Widget>[      
                         GestureDetector(
-                          onTap: (){
-                            Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => StartPage()),
-                                );
-                          },
+
+                         onVerticalDragStart: (DragStartDetails details){
+                        Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => StartPage()),
+                             );
+                         },
+                          // onTap: (){
+                          //   Navigator.push(
+                          //         context,
+                          //         CupertinoPageRoute(
+                          //           builder: (context) => StartPage()),
+                          //       );
+                          // },
                          
                           child: Image(
                           image: AssetImage('Images/flagtwo.png'),
