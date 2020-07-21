@@ -14,7 +14,7 @@ class SocialDistance extends StatefulWidget {
 }
 
 class _SocialDistanceState extends State<SocialDistance> {
- String apiURL = "https://shahzada.website/covid/public/api/social";
+ String apiURL = "https://knowcorona19.com/api/social";
   // String apiURL = "http://shahzada.website/covid/public/api/newApi";
   
   List<String> answerSelected;
@@ -51,10 +51,8 @@ class _SocialDistanceState extends State<SocialDistance> {
 
 
 storestat(int clicked, String postID, String optionTitle, bool isRight) async{
-    
      
-      
-    String postURL = "http://shahzada.website/covid/public/api/storestat";
+    String postURL = "https://knowcorona19.com/api/storestat";
     Map<String, String> headers = {"Content-type": "application/json"};
     String json =
      '{"post" : "$postID" , "stat":  "$clicked", "title": "$optionTitle", "isRight" : "$isRight"}';
@@ -662,7 +660,7 @@ class _CoronaSliderState extends State<CoronaSlider> {
 
 
 fetchSliderStat() async{
-String sliderURL = "https://shahzada.website/covid/public/api/getSliderStats";
+String sliderURL = "https://knowcorona19.com/api/getSliderStats";
 var response = await http.get(sliderURL);
  var sliderbody = response.body;
 var json = jsonDecode(sliderbody);
@@ -710,7 +708,7 @@ else if(val == 1.0){
 storingValue(int clicked, String column) async{
       String newClicked = clicked.toString();
       
-    String postURL = "http://shahzada.website/covid/public/api/storingflutter";
+    String postURL = "https://knowcorona19.com/api/storingflutter";
     Map<String, String> headers = {"Content-type": "application/json"};
     String json = '{"title":  "$newClicked", "column": "$column"}';
     try{

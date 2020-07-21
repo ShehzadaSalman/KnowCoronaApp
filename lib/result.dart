@@ -166,8 +166,8 @@ class _ResultPageState extends State<ResultPage> {
                             flex: 1,
                             child: InkWell(
                               onTap: (){   
-                                 final snackBar = SnackBar(content: Text('The badge has been saved'));
-                                 globalKey.currentState.showSnackBar(snackBar);       
+                                 final snackBarone = SnackBar(content: Text('The Trooper badge has been saved'));
+                                 globalKey.currentState.showSnackBar(snackBarone);       
                                 downloadImageToLocalStorage('Images/one.png');
                                 
                               },
@@ -229,6 +229,7 @@ class _ResultPageState extends State<ResultPage> {
 
     }else if (totalMarks < 10){
       return Scaffold(
+         key: globalKey,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -338,8 +339,8 @@ class _ResultPageState extends State<ResultPage> {
                             flex: 1,
                             child: InkWell(
                               onTap: (){
-                                       final snackBar = SnackBar(content: Text('The badge has been saved'));
-                                 globalKey.currentState.showSnackBar(snackBar);  
+                                final snackBartwo = SnackBar(content: Text('The Lieutenant badge has been saved'));
+                                globalKey.currentState.showSnackBar(snackBartwo);  
                                 downloadImageToLocalStorage('Images/two.png');
                         
 
@@ -402,6 +403,7 @@ class _ResultPageState extends State<ResultPage> {
     }
     else if(totalMarks == 10){
       return Scaffold(
+         key: globalKey,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -511,8 +513,8 @@ class _ResultPageState extends State<ResultPage> {
                             flex: 1,
                             child: InkWell(
                               onTap: (){
-                                       final snackBar = SnackBar(content: Text('The badge has been saved'));
-                                 globalKey.currentState.showSnackBar(snackBar);  
+                               final snackBarthree = SnackBar(content: Text('The General badge has been saved'));
+                               globalKey.currentState.showSnackBar(snackBarthree);  
                                 downloadImageToLocalStorage('Images/three.png');
                               },
                               child: Image(
@@ -619,12 +621,7 @@ class _ResultPageState extends State<ResultPage> {
     await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
 //
 
- 
-
     return file;
     
-
-
-
   }
 }

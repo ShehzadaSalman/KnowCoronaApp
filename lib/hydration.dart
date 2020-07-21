@@ -17,7 +17,7 @@ class Hydration extends StatefulWidget {
 class _HydrationState extends State<Hydration> {
 
   // we do all the here before the app is started
- String apiURL = "https://shahzada.website/covid/public/api/secondapi";
+ String apiURL = "https://knowcorona19.com/api/secondapi";
   // String apiURL = "http://shahzada.website/covid/public/api/newApi";
 //  List<AnswersWithStats> allAnswersWithStats;
   List<String> answerSelected;
@@ -51,7 +51,7 @@ int quizIndex = 0;
     
      
       
-    String postURL = "http://shahzada.website/covid/public/api/storestat";
+    String postURL = "https://knowcorona19.com/api/storestat";
     Map<String, String> headers = {"Content-type": "application/json"};
     String json =
      '{"post" : "$postID" , "stat":  "$clicked", "title": "$optionTitle", "isRight" : "$isRight"}';

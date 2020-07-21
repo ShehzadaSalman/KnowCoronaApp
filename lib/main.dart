@@ -4,13 +4,13 @@ import 'package:knowcorona/sneeze.dart';
 import 'package:knowcorona/social-dist.dart';
 import 'package:knowcorona/survivor.dart';
 import 'package:knowcorona/tissue-handling.dart';
+import 'package:knowcorona/translation.dart';
 import 'package:knowcorona/washing-hands.dart';
 import 'hydration.dart';
 import 'start.dart';
 import 'package:knowcorona/loading.dart';
 import 'Blog.dart';
 import 'result.dart';
-
 
 //void main() => runApp(
 //
@@ -19,12 +19,10 @@ import 'result.dart';
 //  ),
 //);
 //
-void main() => runApp(
-MaterialApp(
-  debugShowCheckedModeBanner: false,
-  home: MyApp(),
-)
-);
+void main() => runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyApp(),
+    ));
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -33,18 +31,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-//        '/' : (context) => LoadingPage(),
-        '/' : (context) => LoadingPage(),
-        '/home' : (context) => MyHomePage(),
-        '/start' : (context) => StartPage(),
-        '/blog' : (context) => BlogPage(),
-        '/survey' : (context) => SocialDistance(),
-        '/hydration' : (context) => Hydration(),
-        '/sneeze' : (context) =>  Sneeze(),
-        '/tissue' : (context) => TissueHandling(),
-        '/washing' : (context) => WashingHands(),
-        '/survivor' : (context) => SurvivorOverview(),
-        '/result' : (context) => ResultPage(),
+        '/': (context) => Translate(),
+        // '/': (context) => LoadingPage(),
+        // '/home': (context) => MyHomePage(),
+        // '/start': (context) => StartPage(),
+        // '/blog': (context) => BlogPage(),
+        // '/survey': (context) => SocialDistance(),
+        // '/hydration': (context) => Hydration(),
+        // '/sneeze': (context) => Sneeze(),
+        // '/tissue': (context) => TissueHandling(),
+        // '/washing': (context) => WashingHands(),
+        // '/survivor': (context) => SurvivorOverview(),
+        // '/result': (context) => ResultPage(),
+        // '/translate': (context) => Translate(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Welcome to KnowCorona',
@@ -56,10 +55,6 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-
-
-
-
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
@@ -74,50 +69,42 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         child: SafeArea(
-          
-          child: Center(
+            child: Center(
           child: Column(
-             
-             mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // This is the first child column
-               Expanded(
-                child:       Column(
-                  children: [
-                    Image(
-                      image: AssetImage('Images/virus.png'),
+                Column(children: [
+                  Image(
+                    image: AssetImage('Images/virus.png'),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    'Purify \n Our Motherland \n from COVID-19',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontFamily: 'Seg',
+                      fontSize: 19.0,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      'Purify \n Our Motherland \n from COVID-19',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontFamily: 'Seg',
-                        fontSize: 19.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ), 
-                  ]
-                 ),
-          
-               ),
-                Expanded(
-                  flex: 3,
-                  child:Column(children: <Widget>[
-                      Stack(
+                  ),
+                ]),
+
+                Column(
+                  children: <Widget>[
+                    Stack(
                       alignment: Alignment.topCenter,
                       overflow: Overflow.visible,
-                      children: <Widget>[      
+                      children: <Widget>[
                         GestureDetector(
-
-                         onVerticalDragStart: (DragStartDetails details){
-                        Navigator.push(
+                          onVerticalDragStart: (DragStartDetails details) {
+                            Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                builder: (context) => StartPage()),
-                             );
-                         },
+                                  builder: (context) => StartPage()),
+                            );
+                          },
                           // onTap: (){
                           //   Navigator.push(
                           //         context,
@@ -125,41 +112,36 @@ class _MyHomePageState extends State<MyHomePage> {
                           //           builder: (context) => StartPage()),
                           //       );
                           // },
-                         
+
                           child: Image(
-                          image: AssetImage('Images/flagtwo.png'),
-                        ),
+                            image: AssetImage('Images/flagtwo.png'),
+                          ),
                         ),
                         Image(
                           image: AssetImage('Images/language.png'),
                         ),
                         Positioned(
-                          bottom: 8,
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => StartPage()),
-                              );
-                            },
-                            child: Image(
-                            image: AssetImage('Images/arrow.png'),
-                          ),
-                          )
-                        )
+                            bottom: 8,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => StartPage()),
+                                );
+                              },
+                              child: Image(
+                                image: AssetImage('Images/arrow.png'),
+                              ),
+                            ))
                       ],
                     ),
-                  SizedBox(height: 0),
-                 ],
-                 ),
+                    SizedBox(height: 0),
+                  ],
                 ),
-               // This is the second child stack
-                 
-                   
-              
-              ]
-              ),
+
+                // This is the second child stack
+              ]),
         )),
       ),
     );

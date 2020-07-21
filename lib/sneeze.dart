@@ -14,7 +14,7 @@ class Sneeze extends StatefulWidget {
 
 class _SneezeState extends State<Sneeze> {
 
- String apiURL = "https://shahzada.website/covid/public/api/sneeze";
+ String apiURL = "https://knowcorona19.com/api/sneeze";
   // String apiURL = "http://shahzada.website/covid/public/api/newApi";
   List<String> answerSelected;
   List<bool> submitEnabled;
@@ -46,7 +46,7 @@ storestat(int clicked, String postID, String optionTitle, bool isRight) async{
     
      
       
-    String postURL = "http://shahzada.website/covid/public/api/storestat";
+    String postURL = "https://knowcorona19.com/api/storestat";
     Map<String, String> headers = {"Content-type": "application/json"};
     String json =
      '{"post" : "$postID" , "stat":  "$clicked", "title": "$optionTitle", "isRight" : "$isRight"}';
