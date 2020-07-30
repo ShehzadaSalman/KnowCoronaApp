@@ -11,6 +11,7 @@ import 'start.dart';
 import 'package:knowcorona/loading.dart';
 import 'Blog.dart';
 import 'result.dart';
+import 'package:ez_localization/ez_localization.dart';
 
 //void main() => runApp(
 //
@@ -19,36 +20,75 @@ import 'result.dart';
 //  ),
 //);
 //
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyApp(),
-    ));
+// void main() => runApp(MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: MyApp(),
+//     ));
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  // @override
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     initialRoute: '/',
+  //     routes: {
+  //       '/': (context) => LoadingPage(),
+  //       '/home': (context) => MyHomePage(),
+  //       '/start': (context) => StartPage(),
+  //       '/blog': (context) => BlogPage(),
+  //       '/survey': (context) => SocialDistance(),
+  //       '/hydration': (context) => Hydration(),
+  //       '/sneeze': (context) => Sneeze(),
+  //       '/tissue': (context) => TissueHandling(),
+  //       '/washing': (context) => WashingHands(),
+  //       '/survivor': (context) => SurvivorOverview(),
+  //       '/result': (context) => ResultPage(),
+  //       '/translate': (context) => Translate(),
+  //     },
+  //     debugShowCheckedModeBanner: false,
+  //     title: 'Welcome to KnowCorona',
+  //   );
+  // }
+
+// new method for doing localization
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => Translate(),
-        // '/': (context) => LoadingPage(),
-        // '/home': (context) => MyHomePage(),
-        // '/start': (context) => StartPage(),
-        // '/blog': (context) => BlogPage(),
-        // '/survey': (context) => SocialDistance(),
-        // '/hydration': (context) => Hydration(),
-        // '/sneeze': (context) => Sneeze(),
-        // '/tissue': (context) => TissueHandling(),
-        // '/washing': (context) => WashingHands(),
-        // '/survivor': (context) => SurvivorOverview(),
-        // '/result': (context) => ResultPage(),
-        // '/translate': (context) => Translate(),
-      },
-      debugShowCheckedModeBanner: false,
-      title: 'Welcome to KnowCorona',
-    );
-  }
+  Widget build(BuildContext context) => EzLocalizationBuilder(
+        delegate: EzLocalizationDelegate(
+          supportedLocales: [
+            Locale('en'),
+            Locale('ur'),
+            Locale('fr'),
+            Locale('es')
+          ],
+        ),
+        builder: (context, localizationDelegate) => MaterialApp(
+          initialRoute: '/',
+          routes: {
+            // When navigating to the "/" route, build the FirstScreen widget.
+            // '/': (context) => _EzLocalizationDemoApp(),
+            '/': (context) => LoadingPage(),
+            '/home': (context) => MyHomePage(),
+            '/start': (context) => StartPage(),
+            '/blog': (context) => BlogPage(),
+            '/survey': (context) => SocialDistance(),
+            '/hydration': (context) => Hydration(),
+            '/sneeze': (context) => Sneeze(),
+            '/tissue': (context) => TissueHandling(),
+            '/washing': (context) => WashingHands(),
+            '/survivor': (context) => SurvivorOverview(),
+            '/result': (context) => ResultPage(),
+            '/translate': (context) => Translate(),
+          },
+          title: 'Welcome to knowcorona',
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: localizationDelegate.localizationDelegates,
+          supportedLocales: localizationDelegate.supportedLocales,
+          localeResolutionCallback:
+              localizationDelegate.localeResolutionCallback,
+        ),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -59,6 +99,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    print(
+        'If your language is set to French or Spanish, here\'s the word "Hello !" in your language :');
+    print(context.getString('hello'));
+    print('(Otherwise it should display a simple "Hello !".)');
+
+    Locale nextLocale = _getNextLocale(context);
+
     return Scaffold(
       body: Container(
         constraints: BoxConstraints.expand(),
@@ -80,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   SizedBox(height: 10.0),
                   Text(
-                    'Purify \n Our Motherland \n from COVID-19',
+                    context.getString('OneTitle'),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.grey[700],
@@ -117,8 +164,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             image: AssetImage('Images/flagtwo.png'),
                           ),
                         ),
-                        Image(
-                          image: AssetImage('Images/language.png'),
+                        InkWell(
+                          onTap: () {
+                            EzLocalizationBuilder.of(context)
+                                .changeLocale(nextLocale);
+                          },
+                          child: Image(
+                            image: AssetImage('Images/language.png'),
+                          ),
                         ),
                         Positioned(
                             bottom: 8,
@@ -146,5 +199,19 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     // This trailing comma makes auto-formatting nicer for build methods.
+  }
+
+  /// Returns the next locale to switch on.
+  Locale _getNextLocale(BuildContext context) {
+    String lang = EzLocalization.of(context).locale.languageCode;
+    switch (lang) {
+      case 'en':
+        return Locale('ur');
+      case 'ur':
+        return Locale('en');
+      // case 'es':
+      //   return Locale('fr');
+    }
+    return null;
   }
 }

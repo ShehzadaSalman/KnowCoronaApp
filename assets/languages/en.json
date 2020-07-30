@@ -1,0 +1,51 @@
+{
+  "hello": "Hello !",
+  "OneTitle": "Protecting \n Our Motherland \n from COVID-19",
+  "Inspire": "Inspire",
+  "Purify": "Purify",
+  "Active": "Active",
+  "Deaths": "Deaths",
+  "Recovered": "Recovered",
+  "Submit": "Submit",
+  "Survivor": {
+    "t1": "Guess all the Tips to fight COVID-19 and discover what type of survivor you are",
+    "t2": "Trooper",
+    "t3": "You know the basics about the virus and can protect yourself from getting it",
+    "t4": "Lieutenant",
+    "t5": "Your advanced knowledge allows you to protect yourself and Others",
+    "t6": "General",
+    "t7": "Your perfect scores make you the best living weapon against COVID-19"
+  },
+  "Results": {
+    "titleOne": "CONGRATULATIONS!",
+    "titleTwo": "You are now a",
+    "one": "COVID-TROOPER",
+    "two": "COVID-LEUITENANT",
+    "three": "COVID-GENERAL",
+    "badge": "Download this badge to your Phone",
+    "facebook": "Add this Official Badge to your Facebook Profile Picture",
+    "correct": "Correct guesses"
+  },
+  "HydrationNote": {
+    "title": "Important",
+    "description": " If you are suffering from any of the following problems, please do not drink too much water without consulting your physician:",
+    "h1": "Heart Disease",
+    "h2": "Kidney Disease",
+    "h3": "Liver Disease"
+  },
+  "menu": {
+    "hydration": "Stay Hydrated",
+    "sneeze": "Sneeze Cough",
+    "social": "Social Distancing",
+    "tissue": "Tissue Handling",
+    "washing": "Washing Hands",
+    "hydratedIntro": "Keeping yourself hydrated strengthens your immune system for COVID-19.",
+    "sneezeIntro": "The best way to protect others is to know how to sneeze or cough during the pandemic",
+    "socialIntro": "Social Distancing is the best way to STOP the disease.",
+    "tissueIntro": "Used tissues are one of the most dangerous sources of COVID-19.",
+    "washingIntro": "Can you guess the 5-step process for the COVID-destroyer hand wash?",
+    "socialone": "COVID-19 can spread tiny droplets from the infected person travelling upto 2-3 meters",
+    "socialtwo": "Keep a distance of at least ____ meters when you meet someone",
+    "socialthree": "Move the Bar to Indicate your best guess for this tip"
+  }
+}

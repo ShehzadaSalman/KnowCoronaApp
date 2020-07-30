@@ -24,7 +24,7 @@ dependencies:
   path_provider: ^1.6.11
   gallery_saver: ^2.0.1
   url_launcher: ^5.4.11
-
+  ez_localization: ^0.3.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -35,24 +35,23 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - Images/
-   - Images/doctor.png
-   - Images/secondblog.png
-
+    - Images/
+    - Images/doctor.png
+    - Images/secondblog.png
+    - assets/
+    - assets/languages/
 
   fonts:
-     - family: Seg
-       fonts:
-         - asset: fonts/SegoeUI.ttf
-         - asset: fonts/SegoeUIBold.ttf
+    - family: Seg
+      fonts:
+        - asset: fonts/SegoeUI.ttf
+        - asset: fonts/SegoeUIBold.ttf

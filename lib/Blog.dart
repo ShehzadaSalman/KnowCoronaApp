@@ -43,7 +43,7 @@ class _BlogPageState extends State<BlogPage> {
           ),
           Expanded(
             child: WebView(
-              initialUrl: 'https://shahzada.website/SocialFeedCorona/',
+              initialUrl: 'https://app.taggbox.com/events/w/first-Wall-26953',
               javascriptMode: JavascriptMode.unrestricted,  
               onWebViewCreated: (WebViewController webViewController) {
                 _controller = webViewController;
