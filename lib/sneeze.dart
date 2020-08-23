@@ -273,12 +273,14 @@ class _SneezeState extends State<Sneeze> {
                                           : color = null;
                                     }
                                     return Row(children: <Widget>[
-                                      SizedBox(
+                                      Container(
+                                        margin:
+                                            EdgeInsets.symmetric(vertical: 0.2),
                                         width: 250,
                                         child: RaisedButton(
                                           color: color,
                                           padding: EdgeInsets.symmetric(
-                                              vertical: 12, horizontal: 15),
+                                              vertical: 2, horizontal: 15),
                                           onPressed: () {
                                             setState(() {
                                               if (questionAttempted[index]) {

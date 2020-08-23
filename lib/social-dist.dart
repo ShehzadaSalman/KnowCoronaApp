@@ -299,12 +299,13 @@ class _SocialDistanceState extends State<SocialDistance> {
                                           : color = null;
                                     }
                                     return Row(children: <Widget>[
-                                      SizedBox(
+                                      Container(
+                                        margin: EdgeInsets.symmetric(vertical: 0.2),
                                         width: 250,
                                         child: RaisedButton(
                                           color: color,
                                           padding: EdgeInsets.symmetric(
-                                              vertical: 12, horizontal: 15),
+                                              vertical: 2, horizontal: 15),
                                           onPressed: () {
                                             setState(() {
                                               if (questionAttempted[index]) {
@@ -354,6 +355,8 @@ class _SocialDistanceState extends State<SocialDistance> {
                                             ),
                                     ]);
                                   }).toList(),
+
+                                  //  SizedBox(height: 20),
                                 ),
                               ),
                               // The submit button comes here
@@ -1027,7 +1030,7 @@ class SurveyTitleQuestion extends StatelessWidget {
         context.getString('menu.socialone') +
             '\n \n' +
             context.getString('menu.socialtwo'),
-            textAlign: TextAlign.center,
+        textAlign: TextAlign.center,
         style: TextStyle(fontSize: 21, fontFamily: 'Seg'),
       ),
     );
@@ -1051,8 +1054,7 @@ class SurveyInformation extends StatelessWidget {
           ),
           SizedBox(height: 30),
           Center(
-            child: Text(
-             
+              child: Text(
             context.getString('menu.socialIntro'),
             textAlign: TextAlign.center,
             style: TextStyle(

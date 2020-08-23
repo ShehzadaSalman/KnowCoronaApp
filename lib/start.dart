@@ -257,9 +257,9 @@ class _StartPageState extends State<StartPage> {
                                                   ),
                                                   children: <TextSpan>[
                                                 TextSpan(
-                                                   text: context.getString(
-                                                            'Recovered') +
-                                                        ': ',
+                                                  text: context.getString(
+                                                          'Recovered') +
+                                                      ': ',
                                                   style: TextStyle(
                                                     color: Colors.black,
                                                   ),
@@ -336,3 +336,4 @@ class _StartPageState extends State<StartPage> {
     return null;
   }
 }
+// flutter pub run change_app_package_name:main com.ovexsol.knowcorona

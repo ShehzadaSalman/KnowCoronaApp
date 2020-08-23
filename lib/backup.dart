@@ -2,7 +2,7 @@
 //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
 //             children: [
-           
+
 //               Image(
 //                 image: AssetImage('Images/virus.png'),
 //               ),
@@ -35,6 +35,5 @@
 // ]
 //           ),
 
-
-
 // this is the back up for the questionaire list
+// keytool -genkey -v -keystore c:\Users\Shahzada\key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias key

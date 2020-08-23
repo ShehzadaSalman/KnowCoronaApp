@@ -13,44 +13,10 @@ import 'Blog.dart';
 import 'result.dart';
 import 'package:ez_localization/ez_localization.dart';
 
-//void main() => runApp(
-//
-//  DevicePreview(
-//    builder: (context) => MyApp(),
-//  ),
-//);
-//
-// void main() => runApp(MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: MyApp(),
-//     ));
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     initialRoute: '/',
-  //     routes: {
-  //       '/': (context) => LoadingPage(),
-  //       '/home': (context) => MyHomePage(),
-  //       '/start': (context) => StartPage(),
-  //       '/blog': (context) => BlogPage(),
-  //       '/survey': (context) => SocialDistance(),
-  //       '/hydration': (context) => Hydration(),
-  //       '/sneeze': (context) => Sneeze(),
-  //       '/tissue': (context) => TissueHandling(),
-  //       '/washing': (context) => WashingHands(),
-  //       '/survivor': (context) => SurvivorOverview(),
-  //       '/result': (context) => ResultPage(),
-  //       '/translate': (context) => Translate(),
-  //     },
-  //     debugShowCheckedModeBanner: false,
-  //     title: 'Welcome to KnowCorona',
-  //   );
-  // }
 
 // new method for doing localization
   @override
@@ -99,11 +65,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    print(
-        'If your language is set to French or Spanish, here\'s the word "Hello !" in your language :');
-    print(context.getString('hello'));
-    print('(Otherwise it should display a simple "Hello !".)');
-
     Locale nextLocale = _getNextLocale(context);
 
     return Scaffold(
