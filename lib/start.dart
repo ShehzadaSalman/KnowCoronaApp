@@ -336,4 +336,3 @@ class _StartPageState extends State<StartPage> {
     return null;
   }
 }
-// flutter pub run change_app_package_name:main com.ovexsol.knowcorona
